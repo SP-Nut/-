@@ -118,3 +118,46 @@ a { transition:color .25s, background-color .25s, border-color .25s; }
 .link-underline { position:relative; }
 .link-underline:after { content:""; position:absolute; left:0; bottom:-4px; width:0; height:1px; background:currentColor; transition:width .4s; }
 .link-underline:hover:after,.link-underline:focus-visible:after { width:100%; }
+
+/* New about section stat items */
+.stat-item-new { 
+  background: linear-gradient(135deg, #121a28, #0f1623); 
+  border: 1px solid #1c2633; 
+  border-radius: 16px; 
+  padding: 1rem 1.5rem; 
+  text-align: center; 
+  position: relative; 
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+@media (min-width: 640px) {
+  .stat-item-new { 
+    padding: 1.5rem; 
+  }
+}
+.stat-item-new:hover { 
+  transform: translateY(-2px); 
+  border-color: #c5a572; 
+  box-shadow: 0 8px 25px rgba(197, 165, 114, 0.15);
+}
+.stat-item-new:before { 
+  content: ""; 
+  position: absolute; 
+  inset: 0; 
+  background: radial-gradient(circle at 50% 20%, rgba(197,165,114,.12), transparent 65%); 
+  mix-blend-mode: overlay; 
+}
+
+/* Mobile responsive improvements */
+@media (max-width: 640px) {
+  .section-py { padding-top: 3rem; padding-bottom: 3rem; }
+  .section-head-wrapper { margin-bottom: 2rem; }
+  .section-title { font-size: clamp(1.4rem, 5vw, 1.8rem); }
+  .hero-contact-line { font-size: 10px; margin-bottom: 1.25rem; }
+  .service-card { padding: 1rem; }
+  .btn-primary, .btn-outline { 
+    padding: 0.75rem 1.5rem; 
+    font-size: 0.875rem;
+    min-height: 44px; /* Touch target size */
+  }
+}
