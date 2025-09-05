@@ -20,4 +20,3 @@ export function AwningIntro(){
   );
 }
 
-export default AwningIntro;

@@ -7,7 +7,6 @@ import { Services } from "./components/Services";
 import { Portfolio } from "./components/Portfolio";
 import { Why } from "./components/Why";
 import { Testimonials } from "./components/Testimonials";
-import { CtaBanner } from "./components/CtaBanner";
 import { FAQ } from "./components/FAQ";
 import { Contact } from "./components/Contact";
 import { SiteFooter } from "./components/SiteFooter";
@@ -29,7 +28,7 @@ export default function Home() {
 				
 				<Why />
 				<Testimonials />
-				<CtaBanner />
+		
 				<FAQ />
 				<Contact />
 			</main>
