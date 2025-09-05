@@ -24,6 +24,8 @@ export function Testimonials({ background }: TestimonialsProps){
   const target = background || '/img/บ้าน.jpg';
   const [bg,setBg] = useState(fallback);
   const [index,setIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const liveRef = useRef<HTMLDivElement|null>(null);
   const sliderRef = useRef<HTMLDivElement|null>(null);
 
@@ -54,6 +56,26 @@ export function Testimonials({ background }: TestimonialsProps){
     window.addEventListener('keydown', onKey); return ()=> window.removeEventListener('keydown', onKey);
   },[next, prev]);
 
+  // Handle touch events for swipe navigation
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+    
+    if (isLeftSwipe) next();
+    if (isRightSwipe) prev();
+  };
+
   return (
     <section id="testimonials" aria-labelledby="testimonials-heading" className="relative py-16 md:py-20 border-y border-[#141d29] overflow-hidden" style={{backgroundImage:`url('${encodeURI(bg)}')`, backgroundSize:'cover', backgroundPosition:'center'}}>
       <div className="absolute inset-0 bg-black/25" />
@@ -70,7 +92,12 @@ export function Testimonials({ background }: TestimonialsProps){
         <div className="grid lg:grid-cols-5 gap-10 items-start" ref={sliderRef}>
           {/* Main */}
           <div className="lg:col-span-3 flex flex-col">
-            <div className="relative bg-[#121b25]/90 backdrop-blur-sm border border-[#1e2a37] p-7 sm:p-9 shadow-[0_10px_32px_-12px_rgba(0,0,0,0.55)] rounded-none">{/* square */}
+            <div 
+              className="relative bg-[#121b25]/90 backdrop-blur-sm border border-[#1e2a37] p-5 sm:p-7 lg:p-9 shadow-[0_10px_32px_-12px_rgba(0,0,0,0.55)] rounded-none select-none touch-manipulation"
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+            >{/* square */}
               <div className="flex items-center gap-1 mb-5" aria-label="เรตติ้ง 5 ดาว">
                 {Array.from({length:5}).map((_,i)=>(<Star key={i} />))}
               </div>
@@ -116,11 +143,22 @@ export function Testimonials({ background }: TestimonialsProps){
           </div>
         </div>
 
-        {/* Dots (mobile) */}
-        <div className="lg:hidden mt-10 flex items-center justify-center gap-2" aria-hidden="true">
-          {DATA.map((_,i)=>(
-            <button key={i} onClick={()=>go(i)} className={`h-2.5 transition-all ${i===index? 'w-7 bg-[#c5a572]' : 'w-2.5 bg-[#2b3845] hover:bg-[#364656]'}`} aria-label={`ไปสไลด์ ${i+1}`} />
-          ))}
+        {/* Mobile Navigation */}
+        <div className="lg:hidden mt-8">
+          {/* Enhanced mobile dots with better touch targets */}
+          <div className="flex items-center justify-center gap-3" aria-hidden="true">
+            {DATA.map((_,i)=>(
+              <button 
+                key={i} 
+                onClick={()=>go(i)} 
+                className={`h-3 transition-all touch-manipulation ${i===index? 'w-8 bg-[#c5a572] rounded-full' : 'w-3 bg-[#2b3845] hover:bg-[#364656] active:bg-[#3d4f5f] rounded-full'}`} 
+                aria-label={`ไปสไลด์ ${i+1}`} 
+              />
+            ))}
+          </div>
+          
+          {/* Swipe hint */}
+          <p className="text-center mt-4 text-xs text-[#6d7a87]">เลื่อนซ้าย-ขวา หรือแตะจุดเพื่อเปลี่ยน</p>
         </div>
         <div ref={liveRef} className="sr-only" aria-live="polite" />
       </div>

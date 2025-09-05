@@ -24,15 +24,14 @@ export function Why() {
   return (
     <section id="why" aria-labelledby="why-heading" className="relative py-20 md:py-28 bg-[#0b1118] border-y border-[#141d29]">
       <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6">
-        <div className="mb-12 md:mb-16 flex items-baseline gap-4">
-          <span className="text-[#c5a572] font-semibold text-sm tracking-[.4em]">04</span>
+        <div className="mb-12 md:mb-16 text-center">
           <SectionTitle id="why-heading">เหตุผลที่ลูกค้าเลือกเรา</SectionTitle>
         </div>
-        <div className="grid gap-10 md:gap-12 md:grid-cols-4">
+        <div className="grid gap-8 sm:gap-10 lg:gap-12 sm:grid-cols-2 lg:grid-cols-4">
           {columns.map((c,i) => (
-            <div key={c.title} className={`flex flex-col ${i!==0 ? 'md:border-l md:border-[#1e2a2f] md:pl-10' : ''}`}> 
-              <h3 className="font-display font-medium text-[1.05rem] sm:text-[1.15rem] leading-snug text-white mb-4">{c.title}</h3>
-              <p className="text-[13px] sm:text-[13.5px] leading-relaxed text-[#94a3b8]">{c.desc}</p>
+            <div key={c.title} className={`flex flex-col ${i%2===1 && i<2 ? 'sm:border-l sm:border-[#1e2a2f] sm:pl-6 lg:pl-10' : i>=2 ? 'lg:border-l lg:border-[#1e2a2f] lg:pl-10' : ''}`}>
+              <h3 className="font-display font-medium text-base sm:text-[1.05rem] lg:text-[1.15rem] leading-snug text-white mb-3 sm:mb-4">{c.title}</h3>
+              <p className="text-xs sm:text-[13px] lg:text-[13.5px] leading-relaxed text-[#94a3b8]">{c.desc}</p>
             </div>
           ))}
         </div>
