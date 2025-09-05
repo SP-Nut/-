@@ -30,14 +30,14 @@ const portfolioItems = [
 export function Portfolio() {
   return (
     <section id="portfolio" className="section-decor relative p-0" aria-label="portfolio">
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 w-full">
+  <div className="portfolio-grid-responsive grid grid-cols-2 lg:grid-cols-4 gap-0 w-full">
         {portfolioItems.map((p,idx) => (
           <figure key={p.file} className="relative overflow-hidden bg-[#121b2b] group cursor-pointer portfolio-item h-[45vh] sm:h-[60vh] lg:h-[85vh]" 
                   data-image={`/img/${p.file}.jpg`}
                   data-alt={p.alt}
                   data-index={(idx+1).toString().padStart(2,'0')}>
-            <Image src={`/img/${p.file}.jpg`} alt={p.alt} width={600} height={1000} 
-                   className="w-full h-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
+       <Image src={`/img/${p.file}.jpg`} alt={p.alt} width={600} height={1000} 
+         className="w-full h-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" sizes="(max-width:480px) 100vw, (max-width:1024px) 50vw, 25vw" />
             <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors"></div>
             <figcaption className="absolute inset-0 flex items-center justify-center text-center px-2 sm:px-4">
               <div className="text-white">

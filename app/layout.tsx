@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Prompt } from "next/font/google";
 import "./globals.css";
 
@@ -44,6 +44,13 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.example.com"),
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  maximumScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -51,7 +58,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="th">
-      <body className={`${prompt.variable} ${promptBody.variable} antialiased bg-[#0b0f19] text-[#e5e7eb]`}>
+      <body className={`${prompt.variable} ${promptBody.variable} antialiased bg-[#0b0f19] text-[#e5e7eb] min-h-screen flex flex-col`}>        
+        <a href="#main" className="skip-link sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#0b1118] focus:text-white focus:rounded-md focus:border focus:border-[#c5a572]">ข้ามไปเนื้อหา</a>
         {children}
       </body>
     </html>

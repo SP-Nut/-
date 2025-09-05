@@ -38,7 +38,7 @@ export function About(){
           {/* Image column */}
             <div className="lg:col-span-7 relative">
               <div className="relative overflow-hidden border border-[#1a2431] bg-[#0f1823] aspect-[16/10] md:aspect-[5/3]">
-                <Image src="/img/บ้าน.jpg" alt="งานติดตั้งกันสาดภายในบ้านสไตล์โมเดิร์น" fill className="object-cover" priority />
+                <Image src="/img/บ้าน.jpg" alt="งานติดตั้งกันสาดภายในบ้านสไตล์โมเดิร์น" fill className="object-cover" priority sizes="(max-width:768px) 100vw, (max-width:1280px) 55vw, 760px" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent" />
               </div>
            

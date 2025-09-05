@@ -16,8 +16,16 @@ export function Hero() {
             รายละเอียดที่เนี้ยบ วัสดุพรีเมียม ดีไซน์เรียบหรู อยู่ได้นาน พร้อมทีมช่างมากประสบการณ์ตั้งแต่สำรวจ ออกแบบ ไปจนถึงติดตั้งแบบครบวงจร
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center px-4 sm:px-0">
-            <a href="#contact" className="btn-primary text-sm sm:text-[13px] px-8 py-3 w-full sm:w-auto text-center">ขอใบเสนอราคา</a>
-            <a href="#portfolio" className="btn-outline text-sm sm:text-[13px] px-8 py-3 w-full sm:w-auto text-center">ดูผลงาน</a>
+            {/* Solid primary first */}
+            <a
+              href="#contact"
+              className="w-full sm:w-auto h-12 px-10 flex items-center justify-center bg-[#b49a74] text-white font-semibold tracking-wide text-[13px] leading-none rounded-none shadow-[0_2px_8px_-2px_rgba(0,0,0,0.45)] hover:brightness-[1.07] focus:outline-none focus:ring-2 focus:ring-[#b49a74]/60 transition"
+            >ขอใบเสนอราคา</a>
+            {/* Outline second */}
+            <a
+              href="#portfolio"
+              className="w-full sm:w-auto h-12 px-10 flex items-center justify-center border border-white text-white font-semibold tracking-wide text-[13px] leading-none hover:bg-white hover:text-[#0b1118] transition-colors duration-200 rounded-none"
+            >ดูผลงาน</a>
           </div>
         </div>
       </div>
