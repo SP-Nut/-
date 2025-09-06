@@ -72,8 +72,6 @@ export function Scripts() {
       if(!bad){ var success=document.getElementById('formSuccess'); if(success) success.classList.remove('hidden'); form.reset(); setTimeout(function(){ if(success) success.classList.add('hidden'); },6000); }
     });
   }
-  // Fade in hero
-  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){ var fade=document.querySelector('.animate-fade'); requestAnimationFrame(function(){ if(fade) fade.classList.add('fade-active'); }); } else { var fade2=document.querySelector('.animate-fade'); if(fade2){ fade2.classList.remove('opacity-0'); } }
   
   // Image modal
   var modal=document.getElementById('imageModal');

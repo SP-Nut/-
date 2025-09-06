@@ -114,7 +114,7 @@ function SocialLink({ href, label, svg }: { href: string; label: string; svg: Re
     <a 
       href={href} 
       aria-label={label} 
-      className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg border border-[#1f2d3b] bg-[#141e29] flex items-center justify-center text-[#9fb0bf] hover:text-[#c5a572] hover:border-[#c5a572] hover:bg-[#1d2935] transition-all duration-300 hover:-translate-y-0.5 shadow-[0_0_0_1px_#1a242e,0_4px_12px_-6px_rgba(0,0,0,.5)] touch-manipulation active:scale-95"
+      className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg border border-[#1f2d3b] bg-[#141e29] flex items-center justify-center text-[#9fb0bf] hover:text-[#c5a572] hover:border-[#c5a572] hover:bg-[#1d2935] transition-all duration-300 shadow-[0_0_0_1px_#1a242e,0_4px_12px_-6px_rgba(0,0,0,.5)] touch-manipulation"
     >
       <svg viewBox="0 0 24 24" className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" stroke="none">{svg}</svg>
     </a>
@@ -133,7 +133,7 @@ function FooterLinks({ items, ariaLabel, duplicateStrategy='href' }: { items: Fo
               <a
                 href={it.href}
                 {...(it.external? { rel:'noopener noreferrer', target:'_blank' }: {})}
-                className="inline-block py-1.5 sm:py-1 pr-2 hover:text-[#c5a572] transition-colors duration-200 hover:translate-x-1 touch-manipulation active:text-[#d9bf8d]"
+                className="inline-block py-1.5 sm:py-1 pr-2 hover:text-[#c5a572] transition-colors duration-200 touch-manipulation active:text-[#d9bf8d]"
               >
                 {it.label}
               </a>
