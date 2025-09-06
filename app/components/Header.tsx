@@ -88,13 +88,13 @@ export function Header(){
       <header
         id="top"
         role="banner"
-        className={`sticky top-0 z-50 border-b border-[#141d29] transition-[background,backdrop-filter,border-color,box-shadow] duration-300 ${scrolled ? 'bg-[#0b1118]/92 backdrop-blur-md shadow-[0_4px_18px_-6px_rgba(0,0,0,0.5)]' : 'bg-transparent'} before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_35%_-25%,rgba(197,165,114,0.18),transparent_60%)]`}
+        className={`sticky top-0 z-50 border-b border-[#141d29] transition-[background,backdrop-filter,border-color,box-shadow] duration-500 ${scrolled ? 'bg-[#0b1118]/92 backdrop-blur-md shadow-[0_4px_18px_-6px_rgba(0,0,0,0.5)]' : 'bg-transparent'} before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_35%_-25%,rgba(197,165,114,0.18),transparent_60%)]`}
       >
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 after:absolute after:top-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-[#c5a572]/50 after:to-transparent" />
         <div className="mx-auto w-full max-w-[1400px] h-16 flex items-center px-4 sm:px-6 relative" style={{ paddingTop:'env(safe-area-inset-top)' }}>
           {/* Logo */}
           <a href="#" aria-label="กลับไปบนสุด" className="flex items-center gap-3 group shrink-0">
-            <Image src="/img/logowhite.png" alt="โลโก้ พรีเมียมกันสาด" width={170} height={48} priority className="h-10 w-auto transition-opacity group-hover:opacity-90" />
+            <Image src="/img/logowhite.png" alt="โลโก้ พรีเมียมกันสาด" width={170} height={48} priority className="h-10 w-auto transition-all duration-300 group-hover:opacity-90 group-hover:scale-105" />
           </a>
 
           {/* Desktop Navigation */}

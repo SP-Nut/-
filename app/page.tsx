@@ -16,6 +16,7 @@ import { FloatingCall } from "./components/FloatingCall";
 import { BackToTop } from "./components/BackToTop";
 import { ImageModal } from "./components/ImageModal";
 import { Scripts } from "./components/Scripts";
+import { AnimationObserver } from "./components/AnimationObserver";
 
 export default function Home() {
 	return (
@@ -39,6 +40,7 @@ export default function Home() {
 			<ImageModal />
 			<FloatingCall />
 			<BackToTop />
+			<AnimationObserver />
 			{/* Inline behaviour scripts (DOM interactions) */}
 			<Scripts />
 		</>

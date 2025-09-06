@@ -29,36 +29,42 @@ export function Services() {
     <section id="services" className="relative py-20 md:py-28 border-y border-[#141d29] bg-[#0b1118]" aria-labelledby="services-heading">
       <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6">
         {/* Section Header */}
-        <div className="flex items-baseline mb-10 md:mb-14">
+        <div className="flex items-baseline mb-10 md:mb-14 animate-fade-in-down animate-delay-100">
           <SectionTitle id="services-heading">บริการของเรา</SectionTitle>
         </div>
-        <p className="text-[#94a3b8] text-sm sm:text-base leading-relaxed max-w-3xl mb-10 md:mb-14">
+        <p className="text-[#94a3b8] text-sm sm:text-base leading-relaxed max-w-3xl mb-10 md:mb-14 animate-fade-in-up animate-delay-300">
           เราพัฒนาโซลูชันกันสาดที่ผสมผสานโครงสร้างที่ปลอดภัย วัสดุคุณภาพสูง และดีไซน์ที่สมดุลกับงานสถาปัตยกรรมเดิม รองรับทั้งงานที่อยู่อาศัย พาณิชย์ และโปรเจ็กต์เฉพาะเงื่อนไขไซต์จริง
         </p>
         {/* Services Grid */}
-        <div className="grid gap-5 md:gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((s) => (
+        <div className="grid gap-5 md:gap-6 sm:grid-cols-2 lg:grid-cols-4 animate-scale-in animate-delay-500">
+          {services.map((s, index) => (
             <article
               key={s.title}
-              className="group relative flex flex-col h-full bg-[#121b25] border border-[#1e2a37] p-5 sm:p-6 hover:border-[#2b3b4d] transition-colors duration-300"
+              className={`service-card group relative flex flex-col h-full bg-[#121b25] border border-[#1e2a37] p-5 sm:p-6 hover:border-[#2b3b4d] transition-all duration-600 animate-fade-in-up animate-delay-${600 + (index * 200)}`}
             >
               {/* Hover aura */}
-              <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 [mask-image:radial-gradient(circle_at_center,white,transparent_65%)] bg-gradient-to-br from-[#c5a5720f] via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 [mask-image:radial-gradient(circle_at_center,white,transparent_65%)] bg-gradient-to-br from-[#c5a5720f] via-transparent to-transparent" />
+              
               {/* Icon */}
-              <div className="mb-4 flex items-center justify-start text-[#d9bf8d]">
-                <div className="w-11 h-11 flex items-center justify-center bg-[#182534] border border-[#2a3a4b] text-[#c5a572] group-hover:border-[#3d5369] transition-colors">
-                  <svg viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6} fill="none" className="w-6 h-6">{s.icon}</svg>
+              <div className="mb-4 flex items-center justify-start text-[#d9bf8d] animate-scale-in animate-delay-${700 + (index * 200)}">
+                <div className="w-11 h-11 flex items-center justify-center bg-[#182534] border border-[#2a3a4b] text-[#c5a572] group-hover:border-[#3d5369] transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 relative">
+                  <svg viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6} fill="none" className="w-6 h-6 relative z-10">{s.icon}</svg>
+                  {/* Icon glow effect */}
+                  <div className="absolute inset-0 bg-[#c5a572]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded"></div>
                 </div>
               </div>
-              <h3 className="font-display font-semibold text-[0.95rem] sm:text-[1.05rem] tracking-tight leading-snug mb-3 text-white">
+              
+              <h3 className="font-display font-semibold text-[0.95rem] sm:text-[1.05rem] tracking-tight leading-snug mb-3 text-white animate-slide-in-left animate-delay-${800 + (index * 200)} group-hover:text-[#c5a572] transition-colors duration-300">
                 {s.title}
               </h3>
-              <p className="text-[12px] sm:text-[13px] leading-relaxed text-[#94a3b8] flex-1">
+              
+              <p className="text-[12px] sm:text-[13px] leading-relaxed text-[#94a3b8] flex-1 animate-fade-in-up animate-delay-${900 + (index * 200)}">
                 {s.desc}
               </p>
-              <div className="mt-5 flex items-center text-[11px] tracking-[.25em] text-[#c5a572] uppercase">
-                <span className="group-hover:translate-x-1 transition-transform">รายละเอียด</span>
-                <svg viewBox="0 0 24 24" className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" stroke="currentColor" strokeWidth={1.6} fill="none"><path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              
+              <div className="mt-5 flex items-center text-[11px] tracking-[.25em] text-[#c5a572] uppercase group-hover:text-[#d9bf8d] transition-colors duration-500 link-underline animate-slide-in-right animate-delay-${1000 + (index * 200)}">
+                <span className="group-hover:translate-x-2 transition-transform duration-500">รายละเอียด</span>
+                <svg viewBox="0 0 24 24" className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform duration-500" stroke="currentColor" strokeWidth={1.6} fill="none"><path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </div>
             </article>
           ))}
