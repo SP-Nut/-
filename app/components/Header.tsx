@@ -1,19 +1,22 @@
 "use client";
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const navigation = [
-  { name: 'หน้าหลัก', href: '#home' },
-  { name: 'เกี่ยวกับเรา', href: '#about' },
-  { name: 'ผลงาน', href: '#portfolio' },
-  { name: 'บริการ', href: '#services' },
-  { name: 'FAQ', href: '#faq' },
-  { name: 'ติดต่อ', href: '#contact' }
+  { name: 'หน้าหลัก', href: '/' },
+  { name: 'ผลงาน', href: '/portfolio' },
+  { name: 'วัสดุ', href: '/materials' },
+  { name: 'บริการ', href: '/#services' },
+  { name: 'FAQ', href: '/#faq' },
+  { name: 'ติดต่อ', href: '/#contact' }
 ];
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,15 +34,19 @@ export function Header() {
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
     
-    if (href === '#home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
+    // For anchor links on the same page
+    if (href.startsWith('/#') && pathname === '/') {
+      const element = document.querySelector(href.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
+  };
 
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const isActive = (href: string) => {
+    if (href === '/' && pathname === '/') return true;
+    if (href !== '/' && pathname === href) return true;
+    return false;
   };
 
   return (
@@ -55,11 +62,7 @@ export function Header() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <a 
-                href="#home" 
-                onClick={(e) => { e.preventDefault(); handleNavClick('#home'); }}
-                className="block"
-              >
+              <Link href="/" className="block">
                 <Image 
                   src="/img/logowhite.png" 
                   alt="พรีเมียมกันสาด" 
@@ -67,21 +70,30 @@ export function Header() {
                   height={45} 
                   className="h-10 w-auto"
                 />
-              </a>
+              </Link>
             </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-8">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.href}
-                    onClick={(e) => { e.preventDefault(); handleNavClick(item.href); }}
-                    className="text-gray-300 hover:text-[#c5a572] px-3 py-2 text-sm font-medium transition-colors duration-200"
+                    onClick={(e) => {
+                      if (item.href.startsWith('/#') && pathname === '/') {
+                        e.preventDefault();
+                        handleNavClick(item.href);
+                      }
+                    }}
+                    className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                      isActive(item.href)
+                        ? 'text-[#c5a572]'
+                        : 'text-gray-300 hover:text-[#c5a572]'
+                    }`}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </nav>
@@ -122,14 +134,25 @@ export function Header() {
           <div className="md:hidden bg-[#0a0f1a]/98 backdrop-blur-lg border-t border-[#1e2a3a]">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navigation.map((item) => (
-                <a
+                <Link
                   key={item.name}
                   href={item.href}
-                  onClick={(e) => { e.preventDefault(); handleNavClick(item.href); }}
-                  className="text-gray-300 hover:text-[#c5a572] block px-3 py-2 text-base font-medium transition-colors duration-200"
+                  onClick={(e) => {
+                    if (item.href.startsWith('/#') && pathname === '/') {
+                      e.preventDefault();
+                      handleNavClick(item.href);
+                    } else {
+                      setIsMobileMenuOpen(false);
+                    }
+                  }}
+                  className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
+                    isActive(item.href)
+                      ? 'text-[#c5a572]'
+                      : 'text-gray-300 hover:text-[#c5a572]'
+                  }`}
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
               <div className="pt-4 pb-2">
                 <a
