@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from "next/image";
 import { Header } from "./components/Header";
 import { SiteFooter } from "./components/SiteFooter";
+import { ClientsSection } from "./components/ClientsSection";
 
 // Stats data
 const stats = [
@@ -95,37 +96,37 @@ const portfolioItems = [
 // Hero Component
 function Hero() {
   return (
-    <section className="hero-modern relative min-h-[70vh] sm:min-h-[75vh] lg:min-h-[80vh] flex items-center" aria-labelledby="hero-heading">
+    <section className="hero-modern relative min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh] flex items-center" aria-labelledby="hero-heading">
       <div className="hero-bg absolute inset-0 bg-cover bg-center" />
-      <div className="w-full hero-inner px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
-        <div className="hero-contact-line flex flex-col sm:flex-row gap-1 sm:gap-2 lg:gap-4 text-[10px] sm:text-xs lg:text-[11px] mb-4 sm:mb-6 opacity-80 text-white">
+      <div className="w-full hero-inner px-3 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+        <div className="hero-contact-line flex flex-col sm:flex-row gap-1 sm:gap-2 lg:gap-4 text-[9px] sm:text-xs lg:text-[11px] mb-3 sm:mb-6 opacity-80 text-white">
           <span className="text-[#c5a572]">กรุงเทพฯ</span>
           <span className="hidden sm:inline">•</span>
-          <span>info@premiumawning.co.th</span>
+          <span className="text-[8px] sm:text-xs">info@premiumawning.co.th</span>
           <span className="hidden sm:inline">•</span>
           <span className="font-medium">081-234-5678</span>
         </div>
         
         <div className="max-w-[900px] w-full">
-          <h1 id="hero-heading" className="font-display font-semibold tracking-tight text-[clamp(1.5rem,7vw,3.8rem)] mb-3 sm:mb-4 lg:mb-6 leading-[1.05] sm:leading-[1.08] px-2 sm:px-0 text-white">
+          <h1 id="hero-heading" className="font-display font-semibold tracking-tight text-[clamp(1.2rem,6vw,3.8rem)] mb-3 sm:mb-4 lg:mb-6 leading-[1.1] sm:leading-[1.08] px-1 sm:px-0 text-white">
             <span className="inline-block">ติดตั้งกันสาดคุณภาพ</span>
             <br className="hidden sm:block"/>
             <span className="inline-block"> เพื่อบ้านและธุรกิจของคุณ</span>
           </h1>
           
-          <p className="text-[#9dafc2] text-[clamp(.8rem,3vw,1.05rem)] leading-relaxed mb-6 sm:mb-8 lg:mb-10 max-w-[620px] mx-auto px-2 sm:px-4 lg:px-0">
+          <p className="text-[#9dafc2] text-[clamp(.75rem,3.5vw,1.05rem)] leading-relaxed mb-4 sm:mb-8 lg:mb-10 max-w-[620px] mx-auto px-1 sm:px-4 lg:px-0">
             รายละเอียดที่เนี้ยบ วัสดุพรีเมียม ดีไซน์เรียบหรู อยู่ได้นาน พร้อมทีมช่างมากประสบการณ์ตั้งแต่สำรวจ ออกแบบ ไปจนถึงติดตั้งแบบครบวงจร
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center px-2 sm:px-4 lg:px-0">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-center justify-center px-1 sm:px-4 lg:px-0">
             <a
               href="#contact"
-              className="w-full sm:w-auto h-11 sm:h-12 px-6 sm:px-8 lg:px-10 flex items-center justify-center bg-[#b49a74] text-white font-semibold tracking-wide text-xs sm:text-[13px] leading-none rounded-md sm:rounded-none shadow-[0_2px_8px_-2px_rgba(0,0,0,0.45)] hover:brightness-[1.08] focus:outline-none focus:ring-2 focus:ring-[#b49a74]/60 transition-all duration-300 touch-manipulation"
+              className="w-full sm:w-auto min-h-[44px] px-4 sm:px-8 lg:px-10 flex items-center justify-center bg-[#b49a74] text-white font-semibold tracking-wide text-sm sm:text-[13px] leading-none rounded-md sm:rounded-none shadow-[0_2px_8px_-2px_rgba(0,0,0,0.45)] hover:brightness-[1.08] focus:outline-none focus:ring-2 focus:ring-[#b49a74]/60 transition-all duration-300 touch-manipulation"
             >ขอใบเสนอราคา</a>
             
             <Link
               href="/portfolio"
-              className="w-full sm:w-auto h-11 sm:h-12 px-6 sm:px-8 lg:px-10 flex items-center justify-center border border-white text-white font-semibold tracking-wide text-xs sm:text-[13px] leading-none hover:bg-white hover:text-[#0b1118] transition-all duration-300 rounded-md sm:rounded-none touch-manipulation"
+              className="w-full sm:w-auto min-h-[44px] px-4 sm:px-8 lg:px-10 flex items-center justify-center border border-white text-white font-semibold tracking-wide text-sm sm:text-[13px] leading-none hover:bg-white hover:text-[#0b1118] transition-all duration-300 rounded-md sm:rounded-none touch-manipulation"
             >ดูผลงาน</Link>
           </div>
         </div>
@@ -137,16 +138,16 @@ function Hero() {
 // About Component
 function About(){
   return (
-    <section id="about" aria-labelledby="about-heading" className="relative py-12 md:py-16 border-y border-[#141d29] bg-[#0b1118]">
-      <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6">
-        <div className="grid gap-8 lg:gap-12 lg:grid-cols-12 items-start">
+    <section id="about" aria-labelledby="about-heading" className="relative py-8 md:py-16 border-y border-[#141d29] bg-[#0b1118]">
+      <div className="mx-auto w-full max-w-[1400px] px-3 sm:px-6">
+        <div className="grid gap-6 lg:gap-12 lg:grid-cols-12 items-start">
           <div className="lg:col-span-5 flex flex-col">
-            <div className="mb-4 flex items-center gap-4 text-[11px] tracking-wide text-[#64748b] uppercase">
+            <div className="mb-3 md:mb-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-[10px] sm:text-[11px] tracking-wide text-[#64748b] uppercase">
               <span className="inline-flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#c5a572]"></span> กรุงเทพฯ</span>
-              <span className="hidden sm:inline">info@premiumawning.co.th</span>
+              <span className="hidden sm:inline text-xs">info@premiumawning.co.th</span>
               <span className="hidden md:inline">081-234-5678</span>
             </div>
-            <div className="flex items-baseline gap-4 mb-4">
+            <div className="flex items-baseline gap-3 md:gap-4 mb-3 md:mb-4">
               <span className="text-[#c5a572] font-semibold text-sm tracking-[.4em]">01</span>
               <h2 id="about-heading" className="font-display font-semibold tracking-tight text-[clamp(1.6rem,3.8vw,2.8rem)] leading-[1.05]">เกี่ยวกับเรา</h2>
             </div>
@@ -171,12 +172,12 @@ function About(){
           </div>
         </div>
 
-        <div className="mt-12 md:mt-16 bg-[#0d141b] px-6 sm:px-8 md:px-10 py-8 md:py-10 flex flex-col md:flex-row items-stretch gap-8 md:gap-0 md:justify-between shadow-[0_0_0_1px_#121c26]">
+        <div className="mt-8 md:mt-16 bg-[#0d141b] px-4 sm:px-8 md:px-10 py-6 md:py-10 flex flex-col sm:flex-row items-stretch gap-4 sm:gap-8 md:gap-0 md:justify-between shadow-[0_0_0_1px_#121c26]">
           {stats.map((s)=> (
             <div key={s.label} className="flex flex-col items-center text-center flex-1 group">
-              <div className="font-display font-bold text-[2rem] sm:text-[2.2rem] md:text-[2.4rem] leading-none text-[#d9bf8d] tracking-tight transition-all duration-300">{s.value}</div>
-              <div className="mt-2 text-[11px] sm:text-[12px] tracking-[.35em] text-white/70 uppercase transition-colors duration-300 group-hover:text-[#c5a572]">{s.label}</div>
-              <div className="w-8 h-px bg-gradient-to-r from-transparent via-[#c5a572] to-transparent mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="font-display font-bold text-[1.8rem] sm:text-[2.2rem] md:text-[2.4rem] leading-none text-[#d9bf8d] tracking-tight transition-all duration-300">{s.value}</div>
+              <div className="mt-1 sm:mt-2 text-[10px] sm:text-[12px] tracking-[.35em] text-white/70 uppercase transition-colors duration-300 group-hover:text-[#c5a572]">{s.label}</div>
+              <div className="w-8 h-px bg-gradient-to-r from-transparent via-[#c5a572] to-transparent mt-1 sm:mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
           ))}
         </div>
@@ -211,10 +212,12 @@ function Portfolio() {
   
   return (
     <section id="portfolio" className="relative bg-[#0b1118]" aria-labelledby="portfolio-heading">
-      {/* Full width grid - no padding, no gaps */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 h-[60vh] lg:h-[80vh]">
+      {/* Responsive grid: single column on mobile with fixed aspect, 2 cols on sm, 4 on lg */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {portfolioItems.map((item, index) => (
-          <div key={index} className="group relative overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-500"
+          <div
+            key={index}
+            className="group relative overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform duration-500 aspect-[4/3] lg:aspect-auto lg:h-[40vh]"
                onClick={() => router.push('/portfolio')}>
             <Image 
               src={item.src} 
@@ -228,8 +231,8 @@ function Portfolio() {
             {/* Text overlay in the center */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center text-white z-10">
-                <h3 className="text-lg lg:text-xl font-bold mb-2 drop-shadow-lg">{item.title}</h3>
-                <p className="text-sm lg:text-base opacity-90 drop-shadow-lg">{item.category}</p>
+                <h3 className="text-base sm:text-lg lg:text-xl font-semibold mb-1 sm:mb-2 drop-shadow-lg">{item.title}</h3>
+                <p className="text-xs sm:text-sm lg:text-base opacity-90 drop-shadow-lg">{item.category}</p>
               </div>
             </div>
           </div>
@@ -242,19 +245,19 @@ function Portfolio() {
 // Services Component
 function Services() {
   return (
-    <section id="services" className="relative py-12 md:py-16 bg-[#0b1118] border-y border-[#1a2332]" aria-labelledby="services-heading">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-light text-white mb-4 tracking-wide">
+    <section id="services" className="relative py-8 md:py-16 bg-[#0b1118] border-y border-[#1a2332]" aria-labelledby="services-heading">
+      <div className="mx-auto w-full max-w-7xl px-3 sm:px-6 lg:px-8">
+        <div className="text-center mb-8 md:mb-10">
+          <h2 className="text-xl md:text-3xl lg:text-4xl font-light text-white mb-3 md:mb-4 tracking-wide">
             บริการของเรา
           </h2>
-          <div className="w-20 h-px bg-gradient-to-r from-transparent via-[#c5a572] to-transparent mx-auto mb-6"></div>
-          <p className="text-[#94a3b8] text-base max-w-2xl mx-auto leading-relaxed font-light">
+          <div className="w-20 h-px bg-gradient-to-r from-transparent via-[#c5a572] to-transparent mx-auto mb-4 md:mb-6"></div>
+          <p className="text-[#94a3b8] text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-light px-2">
             เราพัฒนาโซลูชันกันสาดที่ผสมผสานโครงสร้างที่ปลอดภัย วัสดุคุณภาพสูง และดีไซน์ที่สมดุลกับงานสถาปัตยกรรมเดิม
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
             <div
               key={service.title}
@@ -262,34 +265,34 @@ function Services() {
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[#c5a572]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               
-              <div className="relative p-6">
-                <div className="text-[#c5a572]/30 font-light text-4xl mb-3 leading-none">
+              <div className="relative p-4 sm:p-6">
+                <div className="text-[#c5a572]/30 font-light text-2xl sm:text-4xl mb-2 sm:mb-3 leading-none">
                   0{index + 1}
                 </div>
 
-                <div className="mb-4">
-                  <div className="w-10 h-10 border border-[#2a3a4b] flex items-center justify-center group-hover:border-[#c5a572]/50 transition-colors duration-300">
+                <div className="mb-3 sm:mb-4">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 border border-[#2a3a4b] flex items-center justify-center group-hover:border-[#c5a572]/50 transition-colors duration-300">
                     <svg 
                       viewBox="0 0 24 24" 
                       stroke="currentColor" 
                       strokeWidth={1} 
                       fill="none" 
-                      className="w-5 h-5 text-[#c5a572]"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-[#c5a572]"
                     >
                       {service.icon}
                     </svg>
                   </div>
                 </div>
                 
-                <h3 className="font-light text-base text-white mb-3 tracking-wide leading-snug group-hover:text-[#c5a572] transition-colors duration-300">
+                <h3 className="font-light text-sm sm:text-base text-white mb-2 sm:mb-3 tracking-wide leading-snug group-hover:text-[#c5a572] transition-colors duration-300">
                   {service.title}
                 </h3>
                 
-                <p className="text-[#94a3b8] text-xs leading-relaxed mb-4 font-light">
+                <p className="text-[#94a3b8] text-xs leading-relaxed mb-3 sm:mb-4 font-light">
                   {service.desc}
                 </p>
 
-                <div className="mb-4">
+                <div className="mb-3 sm:mb-4">
                   <span className="text-[#c5a572] text-xs font-light tracking-wider border-b border-[#c5a572]/30 pb-1">
                     {service.price}
                   </span>
@@ -306,12 +309,12 @@ function Services() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <div className="w-px h-12 bg-gradient-to-b from-transparent via-[#c5a572] to-transparent mx-auto mb-6"></div>
-          <p className="text-[#94a3b8] mb-6 font-light text-sm">
+        <div className="text-center mt-8 md:mt-12">
+          <div className="w-px h-12 bg-gradient-to-b from-transparent via-[#c5a572] to-transparent mx-auto mb-4 md:mb-6"></div>
+          <p className="text-[#94a3b8] mb-4 md:mb-6 font-light text-sm px-4">
             ต้องการคำปรึกษาเฉพาะโปรเจ็กต์ของคุณ?
           </p>
-          <button className="group inline-flex items-center px-6 py-2 border border-[#c5a572] text-[#c5a572] hover:bg-[#c5a572] hover:text-[#0b1118] transition-all duration-300 font-light tracking-wider text-sm">
+          <button className="group inline-flex items-center px-4 sm:px-6 py-2 border border-[#c5a572] text-[#c5a572] hover:bg-[#c5a572] hover:text-[#0b1118] transition-all duration-300 font-light tracking-wider text-sm min-h-[44px] touch-manipulation">
             <span>ปรึกษาฟรี</span>
             <svg className="w-4 h-4 ml-3 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -358,11 +361,10 @@ function Video() {
     // Performance optimizations
     const handleLoadedMetadata = () => {
       console.log('Video metadata loaded');
-      // Optimize video for device capabilities
-      if (window.innerWidth < 768) {
-        video.style.maxWidth = '100%';
-        video.style.height = 'auto';
-      }
+      // Basic optimizations for all devices
+      video.style.maxWidth = '100%';
+      video.style.height = 'auto';
+      video.style.objectFit = 'cover';
     };
 
     video.addEventListener('loadstart', handleLoadStart);
@@ -393,8 +395,8 @@ function Video() {
         });
       },
       { 
-        threshold: 0.1, // Lower threshold for earlier detection
-        rootMargin: '100px' // Start loading earlier
+        threshold: 0.1,
+        rootMargin: '100px'
       }
     );
 
@@ -415,31 +417,37 @@ function Video() {
   }, [hasError]);
 
   return (
-    <section id="video" className="relative min-h-screen bg-[#0b1118] flex items-center justify-center">
-      <div className="relative w-full h-screen overflow-hidden">
-        {/* Loading indicator - only show if actually loading and no error */}
+    <section 
+      id="video" 
+      className="relative bg-[#0b1118] flex items-center justify-center overflow-hidden md:min-h-screen"
+    >
+      <div 
+        className="relative w-full h-auto md:h-full overflow-hidden"
+      >
+        {/* Loading indicator */}
         {isLoading && !hasError && (
-          <div className="absolute inset-0 flex items-center justify-center bg-[#0b1118] z-20">
-            <div className="flex flex-col items-center">
+          <div className="md:absolute md:inset-0 w-full h-auto md:h-full flex items-center justify-center bg-[#0b1118] z-20 min-h-[200px]">
+            <div className="flex flex-col items-center px-4">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mb-4"></div>
-              <div className="text-white text-lg">กำลังโหลดวิดีโอ...</div>
+              <div className="text-white text-lg text-center">กำลังโหลดวิดีโอ...</div>
             </div>
           </div>
         )}
         
         {/* Error fallback */}
         {hasError && (
-          <div className="absolute inset-0 bg-[#0b1118] z-10">
-            <div className="relative w-full h-full">
+          <div className="md:absolute md:inset-0 w-full h-auto md:h-full bg-[#0b1118] z-10">
+            <div className="relative w-full h-auto md:h-full aspect-video md:aspect-auto">
               <Image 
                 src="/img/01.jpg" 
                 alt="SP Awning - กันสาดคุณภาพ" 
                 fill
-                className="object-cover"
+                className="object-contain md:object-cover"
                 priority
+                sizes="100vw"
               />
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                <div className="text-center text-white">
+                <div className="text-center text-white px-4">
                   <p className="text-lg mb-2">วิดีโอไม่สามารถแสดงได้</p>
                   <p className="text-sm opacity-80">กรุณารีเฟรชหน้าหรือลองใหม่อีกครั้ง</p>
                 </div>
@@ -450,16 +458,16 @@ function Video() {
         
         <video 
           ref={videoRef}
-          className={`w-full h-full object-cover transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+          className={`md:absolute md:inset-0 w-full h-auto md:h-full md:object-cover object-contain transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+          style={{ willChange: 'transform' }}
           muted
           loop
           playsInline
           poster="/img/01.jpg"
-          preload="auto"
-          style={{ willChange: 'transform' }}
+          preload="metadata"
+          key={`video-new`}
         >
-          <source src="/img/video.mp4" type="video/mp4" />
-          <source src="/img/video.webm" type="video/webm" />
+          <source src="/img/video-new.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
@@ -576,6 +584,7 @@ function FAQ() {
 // Testimonials Component
 function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsPerView, setItemsPerView] = useState(3);
   
   const testimonials = [
     {
@@ -660,7 +669,18 @@ function Testimonials() {
     }
   ];
 
-  const itemsPerView = 3;
+  useEffect(() => {
+    const updateItems = () => {
+      const w = typeof window !== 'undefined' ? window.innerWidth : 1024;
+      if (w < 768) setItemsPerView(1);
+      else if (w < 1024) setItemsPerView(2);
+      else setItemsPerView(3);
+    };
+    updateItems();
+    window.addEventListener('resize', updateItems);
+    return () => window.removeEventListener('resize', updateItems);
+  }, []);
+
   const maxIndex = Math.max(0, testimonials.length - itemsPerView);
 
   const nextSlide = () => {
@@ -1098,7 +1118,7 @@ function FloatingCall() {
       className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#c5a572] rounded-full flex items-center justify-center shadow-lg hover:bg-[#b49a74] transition-colors duration-300"
       aria-label="โทรหาเรา"
     >
-      <svg className="w-6 h-6 text-[#c5a572]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
       </svg>
     </a>
@@ -1155,6 +1175,7 @@ export default function Home() {
 				<Services />
 				<Video />
 				<Why />
+				<ClientsSection />
 				<FAQ />
 				<Testimonials />
 				<Contact />

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -14,18 +14,60 @@ const navigation = [
 ];
 
 export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  // Transparent only while the hero section is visible
+  const [isHeroVisible, setIsHeroVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const retryTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    // Clean up previous observer and timers
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+      observerRef.current = null;
+    }
+    if (retryTimerRef.current) {
+      window.clearTimeout(retryTimerRef.current);
+      retryTimerRef.current = null;
+    }
+
+    let attempts = 0;
+    const attach = () => {
+      const hero = document.querySelector('.hero-modern');
+      if (!hero) {
+        // Retry briefly until hero mounts (handles streaming/hydration timing)
+        if (attempts < 20) {
+          attempts += 1;
+          retryTimerRef.current = window.setTimeout(attach, 75);
+        } else {
+          // No hero on this page -> always show background
+          setIsHeroVisible(false);
+        }
+        return;
+      }
+
+      // Create observer; subtract header height so we flip once hero top passes header
+      observerRef.current = new IntersectionObserver(
+        ([entry]) => {
+          setIsHeroVisible(entry.isIntersecting);
+        },
+  { threshold: 0.01, rootMargin: '-68px 0px 0px 0px' }
+      );
+      observerRef.current.observe(hero);
+
+      // Initialize immediately based on current position
+      const rect = (hero as HTMLElement).getBoundingClientRect();
+      setIsHeroVisible(rect.bottom > 64);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    attach();
+
+    return () => {
+      if (observerRef.current) observerRef.current.disconnect();
+      if (retryTimerRef.current) window.clearTimeout(retryTimerRef.current);
+    };
+  }, [pathname]);
 
   const handleMobileMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -53,9 +95,9 @@ export function Header() {
     <>
       <header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled 
-            ? 'bg-[#0a0f1a]/95 backdrop-blur-lg border-b border-[#1e2a3a]' 
-            : 'bg-transparent'
+          (!isHeroVisible || isMobileMenuOpen)
+            ? 'bg-[#0a0f1a]/95 backdrop-blur-lg'
+            : 'bg-transparent backdrop-blur-0'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -167,8 +209,8 @@ export function Header() {
         )}
       </header>
 
-      {/* Spacer for fixed header */}
-      <div className="h-16"></div>
+  {/* Spacer for fixed header: only when hero is NOT visible */}
+  <div className={(!isHeroVisible || isMobileMenuOpen) ? 'h-16' : 'h-0'}></div>
     </>
   );
 }

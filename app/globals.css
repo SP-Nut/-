@@ -13,7 +13,108 @@
 /* Base */
 html { scroll-behavior:smooth; }
 @media (prefers-reduced-motion:reduce){ html { scroll-behavior:auto; } }
-body { background:var(--bg); color:var(--text); font-family: var(--font-body, var(--font-display), system-ui, sans-serif); -webkit-font-smoothing:antialiased; line-height:1.55; text-size-adjust:100%; -webkit-text-size-adjust:100%; overflow-x: hidden; }
+
+/* Fix mobile spacing */
+@media (max-width: 768px) {
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  /* Text size adjustments for mobile */
+  h1[class*="clamp"] {
+    font-size: clamp(1.2rem, 6vw, 2.5rem) !important;
+  }
+  
+  p[class*="clamp"] {
+    font-size: clamp(0.85rem, 3.5vw, 1rem) !important;
+  }
+  
+  /* Button improvements */
+  .touch-manipulation {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.875rem !important;
+    min-height: 44px !important;
+  }
+  
+  .grid[class*="gap-"] {
+    gap: 0.75rem !important;
+  }
+  
+  /* Typography scale down */
+  .text-2xl {
+    font-size: 1.25rem !important;
+  }
+  
+  .text-3xl {
+    font-size: 1.5rem !important;
+  }
+  
+  .text-4xl {
+    font-size: 1.75rem !important;
+  }
+  
+  /* Better padding for mobile */
+  .px-4 {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  
+  .px-6 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Video Section Mobile - Do not enlarge; container follows video height */
+  #video {
+  margin: 0 !important;
+  padding: 0 !important;
+    height: auto !important;
+    min-height: auto !important;
+    aspect-ratio: auto !important;
+    display: block !important;
+    background: #0b1118 !important;
+  }
+  
+  #video > div {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    position: relative !important;
+  display: block !important;
+  }
+  
+  #video video {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    background: #000 !important;
+    display: block !important;
+  border-radius: 0 !important;
+  }
+}
+
+/* Desktop video - keep fullscreen */
+@media (min-width: 769px) {
+  #video {
+    height: 100vh !important;
+    min-height: 100vh !important;
+  }
+  
+  #video > div {
+    height: 100% !important;
+  }
+  
+  #video video {
+    height: 100% !important;
+  }
+}
 
 /* Page Transitions - Disabled */
 .page-transition {
@@ -38,6 +139,17 @@ body { background:var(--bg); color:var(--text); font-family: var(--font-body, va
 
 /* Focus visibility */
 :focus-visible { outline:2px solid var(--accent); outline-offset:3px; border-radius:4px; }
+
+/* Scrollbar Hide */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mobile Video Section Fix (unified) -> handled above; no duplicate rules */
 
 /* Typography helpers */
 .font-display { font-family: var(--font-display, system-ui, sans-serif); }
@@ -262,4 +374,62 @@ video {
     animation: none !important;
     background: #0b1118;
   }
+}
+
+/* Clients Section Animations */
+.clients-scroll {
+  animation: scroll-left 60s linear infinite;
+}
+
+.clients-scroll:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Client logo hover effects */
+.client-logo {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.client-logo:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Client section background pattern */
+.clients-bg {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(197, 165, 114, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(197, 165, 114, 0.03) 0%, transparent 50%);
+}
+
+/* Stats counter animation */
+.stats-counter {
+  counter-reset: stats-animation;
+  animation: countUp 2s ease-out forwards;
+}
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth scroll behavior */
+.smooth-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
