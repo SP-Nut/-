@@ -257,6 +257,7 @@ function Portfolio() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   
   // Calculate items per view based on screen size
   const getItemsPerView = () => {
@@ -264,7 +265,8 @@ function Portfolio() {
       if (window.innerWidth >= 1280) return 4; // xl: 4 items
       if (window.innerWidth >= 1024) return 3; // lg: 3 items
       if (window.innerWidth >= 768) return 2;  // md: 2 items
-      return 1; // sm: 1 item
+      if (window.innerWidth >= 640) return 2;  // sm: 2 items
+      return 1.5; // mobile: 1.5 items to show partial next image like desktop
     }
     return 4;
   };
@@ -274,8 +276,15 @@ function Portfolio() {
   // Update items per view on resize
   useEffect(() => {
     const handleResize = () => {
-      setItemsPerView(getItemsPerView());
+      const newItemsPerView = getItemsPerView();
+      setItemsPerView(newItemsPerView);
+      setIsMobile(window.innerWidth < 640);
     };
+    
+    // Set initial state
+    if (typeof window !== 'undefined') {
+      setIsMobile(window.innerWidth < 640);
+    }
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -285,31 +294,56 @@ function Portfolio() {
   const scrollToIndex = (index: number) => {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
-      const itemWidth = container.scrollWidth / portfolioItems.length;
-      const targetPosition = index * itemWidth;
+      const totalItems = portfolioItems.length;
+      
+      // Calculate scroll position based on screen size
+      let scrollPosition;
+      if (isMobile) {
+        // Mobile: scroll by card width (90vw + margin)
+        const cardWidth = window.innerWidth * 0.9 + 16; // 90vw + 16px margin
+        scrollPosition = index * cardWidth;
+      } else {
+        // Desktop: use existing logic
+        const itemWidth = container.scrollWidth / totalItems;
+        scrollPosition = index * itemWidth;
+      }
       
       container.scrollTo({ 
-        left: targetPosition, 
+        left: scrollPosition, 
         behavior: 'smooth' 
       });
     }
   };
 
-  // Handle navigation
+  // Handle navigation for mobile
   const goToNext = () => {
-    const nextIndex = (currentIndex + itemsPerView) >= portfolioItems.length 
-      ? 0 
-      : currentIndex + itemsPerView;
-    setCurrentIndex(nextIndex);
-    scrollToIndex(nextIndex);
+    if (isMobile) {
+      const nextIndex = (currentIndex + 1) >= portfolioItems.length ? 0 : currentIndex + 1;
+      setCurrentIndex(nextIndex);
+      scrollToIndex(nextIndex);
+    } else {
+      const increment = itemsPerView;
+      const nextIndex = (currentIndex + increment) >= portfolioItems.length 
+        ? 0 
+        : currentIndex + increment;
+      setCurrentIndex(nextIndex);
+      scrollToIndex(nextIndex);
+    }
   };
 
   const goToPrev = () => {
-    const prevIndex = currentIndex - itemsPerView < 0 
-      ? Math.max(0, portfolioItems.length - itemsPerView)
-      : currentIndex - itemsPerView;
-    setCurrentIndex(prevIndex);
-    scrollToIndex(prevIndex);
+    if (isMobile) {
+      const prevIndex = currentIndex - 1 < 0 ? portfolioItems.length - 1 : currentIndex - 1;
+      setCurrentIndex(prevIndex);
+      scrollToIndex(prevIndex);
+    } else {
+      const increment = itemsPerView;
+      const prevIndex = currentIndex - increment < 0 
+        ? Math.max(0, portfolioItems.length - increment)
+        : currentIndex - increment;
+      setCurrentIndex(prevIndex);
+      scrollToIndex(prevIndex);
+    }
   };
 
   useEffect(() => {
@@ -348,54 +382,186 @@ function Portfolio() {
     }
   }, [isDragging, itemsPerView]);
 
+  // Mobile specific rendering
+  if (isMobile) {
+    return (
+      <section id="portfolio" className="relative bg-gradient-to-b from-gray-50 to-white py-12" aria-labelledby="portfolio-heading">
+        {/* Mobile Section heading */}
+        <div className="max-w-7xl mx-auto px-6 mb-8">
+          <div className="text-center">
+            <h2 id="portfolio-heading" className="text-4xl font-bold text-gray-900 mb-4">
+              ผลงานของเรา
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              ชมผลงานการติดตั้งกันสาดคุณภาพสูง ที่ผสมผสานระหว่างความสวยงาม ความทนทาน และฟังก์ชันการใช้งาน
+            </p>
+            <div className="mt-6 w-24 h-1 bg-gradient-to-r from-[#c5a572] to-[#d4b583] mx-auto rounded-full"></div>
+          </div>
+        </div>
+        
+        {/* Mobile Portfolio Carousel - Single Image */}
+        <div className="relative w-full">
+          {/* Scrollable Container */}
+          <div 
+            ref={scrollContainerRef}
+            className="flex overflow-x-auto scrollbar-hide touch-pan-x px-6"
+            style={{ 
+              scrollbarWidth: 'none', 
+              msOverflowStyle: 'none', 
+              scrollSnapType: 'x mandatory',
+              WebkitOverflowScrolling: 'touch'
+            }}
+            onTouchStart={(e) => {
+              setIsDragging(true);
+              e.currentTarget.style.scrollBehavior = 'auto';
+            }}
+            onTouchEnd={(e) => {
+              setIsDragging(false);
+              setTimeout(() => {
+                e.currentTarget.style.scrollBehavior = 'smooth';
+              }, 100);
+            }}
+          >
+            {portfolioItems.map((item, index) => (
+              <div
+                key={index}
+                className="group relative flex-shrink-0 w-[90vw] h-[500px] overflow-hidden rounded-2xl cursor-pointer transform transition-all duration-500 hover:scale-[1.02] shadow-xl hover:shadow-2xl mr-4"
+                style={{ scrollSnapAlign: 'start' }}
+                onClick={() => router.push('/portfolio')}
+              >
+                {/* Image */}
+                <Image 
+                  src={item.src} 
+                  alt={item.alt} 
+                  fill 
+                  className="object-cover transition-transform duration-700 group-hover:scale-110" 
+                  loading={index < 3 ? 'eager' : 'lazy'}
+                  sizes="90vw"
+                  priority={index < 2}
+                />
+                
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                
+                {/* Content */}
+                <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
+                  <div className="transform translate-y-0 transition-transform duration-300">
+                    <span className="inline-block px-4 py-2 bg-[#c5a572]/90 text-white text-sm font-medium rounded-full mb-4 backdrop-blur-sm">
+                      {item.category}
+                    </span>
+                    <h3 className="text-2xl font-bold mb-3 leading-tight">
+                      {item.title}
+                    </h3>
+                    <p className="text-base text-gray-200 leading-relaxed">
+                      คลิกเพื่อดูรายละเอียดเพิ่มเติม
+                    </p>
+                  </div>
+                  
+                  {/* View More Button */}
+                  <div className="absolute top-6 right-6 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Mobile Navigation - Same as Desktop */}
+        <div className="flex justify-center items-center mt-8 px-4 pb-8">
+          <div className="flex items-center gap-8">
+            {/* Left Arrow */}
+            <button
+              onClick={goToPrev}
+              className="w-14 h-14 bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center border border-gray-200 touch-manipulation active:scale-95"
+              aria-label="ดูผลงานก่อนหน้า"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* Page Counter */}
+            <div className="flex flex-col items-center min-w-[100px]">
+              <div className="text-lg text-gray-700 font-bold bg-white/95 px-6 py-3 rounded-full shadow-lg border border-gray-200 backdrop-blur-sm">
+                {currentIndex + 1} / {portfolioItems.length}
+              </div>
+              <div className="text-xs text-gray-500 mt-2 font-medium">
+                ผลงาน
+              </div>
+            </div>
+
+            {/* Right Arrow */}
+            <button
+              onClick={goToNext}
+              className="w-14 h-14 bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center border border-gray-200 touch-manipulation active:scale-95"
+              aria-label="ดูผลงานถัดไป"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Progress Dots */}
+        <div className="flex justify-center items-center gap-2 px-4 pb-4">
+          {portfolioItems.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setCurrentIndex(index);
+                scrollToIndex(index);
+              }}
+              className={`h-2 rounded-full transition-all duration-300 touch-manipulation ${
+                currentIndex === index
+                  ? 'bg-[#c5a572] w-8' 
+                  : 'bg-gray-300 hover:bg-gray-400 w-2'
+              }`}
+              aria-label={`ไปยังผลงานที่ ${index + 1}`}
+            />
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // Desktop rendering (existing layout)
   return (
-    <section id="portfolio" className="relative bg-gradient-to-b from-gray-50 to-white py-12 md:py-16" aria-labelledby="portfolio-heading">
+    <section id="portfolio" className="relative bg-gradient-to-b from-gray-50 to-white py-8 md:py-12" aria-labelledby="portfolio-heading">
       {/* Section heading */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-6">
         <div className="text-center">
-          <h2 id="portfolio-heading" className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 id="portfolio-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-3">
             ผลงานของเรา
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
             ชมผลงานการติดตั้งกันสาดคุณภาพสูง ที่ผสมผสานระหว่างความสวยงาม ความทนทาน และฟังก์ชันการใช้งานที่เหมาะสม
           </p>
-          <div className="mt-4 w-24 h-1 bg-gradient-to-r from-[#c5a572] to-[#d4b583] mx-auto rounded-full"></div>
+          <div className="mt-4 sm:mt-3 w-24 h-1 bg-gradient-to-r from-[#c5a572] to-[#d4b583] mx-auto rounded-full"></div>
         </div>
       </div>
       
       {/* Portfolio Grid */}
       <div className="relative w-full">
-        {/* Navigation Buttons */}
-        <button
-          onClick={goToPrev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-gray-900 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center"
-          aria-label="ดูผลงานก่อนหน้า"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        
-        <button
-          onClick={goToNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-gray-900 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center"
-          aria-label="ดูผลงานถัดไป"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-
         {/* Scrollable Container */}
         <div 
           ref={scrollContainerRef}
-          className="flex overflow-x-auto scrollbar-hide"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', scrollSnapType: 'x mandatory' }}
+          className="flex overflow-x-auto scrollbar-hide touch-pan-x px-4 sm:px-0"
+          style={{ 
+            scrollbarWidth: 'none', 
+            msOverflowStyle: 'none', 
+            scrollSnapType: 'x proximity',
+            WebkitOverflowScrolling: 'touch'
+          }}
         >
           {portfolioItems.map((item, index) => (
             <div
               key={index}
-              className="group relative flex-shrink-0 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 h-96 md:h-[28rem] lg:h-[36rem] xl:h-[40rem] overflow-hidden cursor-pointer transform transition-all duration-500 hover:scale-[1.02]"
+              className="group relative flex-shrink-0 w-[48vw] md:w-1/2 lg:w-1/3 xl:w-1/4 h-[36rem] md:h-[40rem] lg:h-[44rem] xl:h-[48rem] overflow-hidden cursor-pointer transform transition-all duration-500 hover:scale-[1.02] touch-manipulation"
               style={{ scrollSnapAlign: 'start' }}
               onClick={() => router.push('/portfolio')}
             >
@@ -407,28 +573,29 @@ function Portfolio() {
                 className="object-cover transition-transform duration-700 group-hover:scale-110" 
                 loading={index < 3 ? 'eager' : 'lazy'}
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                priority={index < 2}
               />
               
               {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300" />
               
               {/* Content */}
-              <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-6 text-white">
+              <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-6 md:p-6 text-white">
                 <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                  <span className="inline-block px-2 py-1 md:px-3 md:py-1 bg-[#c5a572]/90 text-white text-xs font-medium rounded-full mb-2 md:mb-3 backdrop-blur-sm">
+                  <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 md:px-3 md:py-1 bg-[#c5a572]/90 text-white text-sm sm:text-base md:text-xs font-medium rounded-full mb-3 sm:mb-4 md:mb-3 backdrop-blur-sm">
                     {item.category}
                   </span>
-                  <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-1 md:mb-2 leading-tight">
+                  <h3 className="text-xl sm:text-2xl md:text-xl lg:text-2xl font-bold mb-2 sm:mb-3 md:mb-2 leading-tight">
                     {item.title}
                   </h3>
-                  <p className="text-xs md:text-sm text-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                  <p className="text-sm sm:text-base md:text-sm text-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                     คลิกเพื่อดูรายละเอียดเพิ่มเติม
                   </p>
                 </div>
                 
                 {/* View More Button */}
-                <div className="absolute top-4 right-4 w-8 h-8 md:w-10 md:h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100">
-                  <svg className="w-4 h-4 md:w-5 md:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="absolute top-4 sm:top-5 md:top-4 right-4 sm:right-5 md:right-4 w-10 h-10 sm:w-12 sm:h-12 md:w-10 md:h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 md:w-5 md:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>
@@ -439,30 +606,58 @@ function Portfolio() {
         </div>
       </div>
       
-      {/* Progress Indicators */}
-      <div className="flex justify-center items-center gap-4 mt-6 px-4 pb-4">
-        <div className="flex gap-2">
-          {Array.from({ length: Math.ceil(portfolioItems.length / itemsPerView) }).map((_, pageIndex) => (
-            <button
-              key={pageIndex}
-              onClick={() => {
-                const targetIndex = pageIndex * itemsPerView;
-                setCurrentIndex(targetIndex);
-                scrollToIndex(targetIndex);
-              }}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                Math.floor(currentIndex / itemsPerView) === pageIndex
-                  ? 'bg-[#c5a572] w-8' 
-                  : 'bg-gray-300 hover:bg-gray-400'
-              }`}
-              aria-label={`ไปหน้าที่ ${pageIndex + 1}`}
-            />
-          ))}
+      {/* Progress Indicators and Navigation */}
+      <div className="flex justify-center items-center mt-6 px-4 pb-4">
+        <div className="flex items-center gap-6">
+          {/* Left Arrow */}
+          <button
+            onClick={goToPrev}
+            className="w-10 h-10 bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center border border-gray-200"
+            aria-label="ดูผลงานก่อนหน้า"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Page Counter */}
+          <div className="flex flex-col items-center min-w-[80px]">
+            <div className="text-sm text-gray-700 font-bold bg-white/95 px-4 py-2 rounded-full shadow-lg border border-gray-200 backdrop-blur-sm">
+              {`${Math.floor(currentIndex / itemsPerView) + 1} / ${Math.ceil(portfolioItems.length / itemsPerView)}`}
+            </div>
+          </div>
+
+          {/* Right Arrow */}
+          <button
+            onClick={goToNext}
+            className="w-10 h-10 bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center border border-gray-200"
+            aria-label="ดูผลงานถัดไป"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
-        
-        <div className="text-sm text-gray-500 font-medium ml-4">
-          {Math.floor(currentIndex / itemsPerView) + 1} / {Math.ceil(portfolioItems.length / itemsPerView)}
-        </div>
+      </div>
+
+      {/* Desktop Progress Dots */}
+      <div className="flex justify-center items-center gap-2 px-4 pb-4">
+        {Array.from({ length: Math.ceil(portfolioItems.length / itemsPerView) }).map((_, pageIndex) => (
+          <button
+            key={pageIndex}
+            onClick={() => {
+              const targetIndex = pageIndex * itemsPerView;
+              setCurrentIndex(targetIndex);
+              scrollToIndex(targetIndex);
+            }}
+            className={`h-2 rounded-full transition-all duration-300 touch-manipulation ${
+              Math.floor(currentIndex / itemsPerView) === pageIndex
+                ? 'bg-[#c5a572] w-8' 
+                : 'bg-gray-300 hover:bg-gray-400 w-2'
+            }`}
+            aria-label={`ไปหน้าที่ ${pageIndex + 1}`}
+          />
+        ))}
       </div>
     </section>
   );

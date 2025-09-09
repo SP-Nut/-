@@ -22,6 +22,230 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display, var(--font-body, system-ui, sans-serif));
 }
 
+/* Mobile Portfolio Navigation Enhancements - Clean Design */
+@media (max-width: 640px) {
+  /* Portfolio navigation container */
+  .portfolio-navigation {
+    padding: 24px 16px;
+    margin-top: 24px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.03), transparent);
+  }
+  
+  /* Larger touch targets for buttons - Clean and simple */
+  .portfolio-nav-button {
+    min-width: 56px !important;
+    min-height: 56px !important;
+    border: 2px solid #e5e7eb !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1) !important;
+    background: rgba(255,255,255,0.95) !important;
+    backdrop-filter: blur(8px) !important;
+  }
+  
+  /* Better visual feedback */
+  .portfolio-nav-button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15) !important;
+    border-color: #c5a572 !important;
+  }
+  
+  .portfolio-nav-button:active {
+    transform: scale(0.92);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2) !important;
+  }
+  
+  /* Counter styling - Prominent and clean */
+  .portfolio-counter-mobile {
+    background: rgba(255,255,255,0.95) !important;
+    border: 2px solid #e5e7eb !important;
+    font-weight: 700 !important;
+    color: #1f2937 !important;
+    padding: 12px 20px !important;
+    border-radius: 25px !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1) !important;
+    backdrop-filter: blur(8px) !important;
+    font-size: 18px !important;
+    min-width: 80px !important;
+    text-align: center !important;
+  }
+  
+  /* Remove dots-related styles for mobile */
+  .portfolio-progress-dots {
+    display: none !important;
+  }
+  
+  .portfolio-dot {
+    display: none !important;
+  }
+}
+
+/* Enhanced Mobile Portfolio Experience - Cleaner Design */
+@media (max-width: 640px) {
+  /* Smooth horizontal scrolling like desktop */
+  .portfolio-carousel {
+    scroll-behavior: smooth;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    padding: 0 16px;
+  }
+  
+  /* Portfolio items with desktop-like spacing */
+  .portfolio-mobile-item {
+    width: 85vw;
+    flex-shrink: 0;
+    margin-right: 8px;
+    scroll-snap-align: start;
+  }
+  
+  /* Show edge of next image like desktop */
+  .portfolio-peek {
+    margin-right: 12px;
+  }
+  
+  /* Prevent momentum scrolling interference */
+  .portfolio-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Better visual feedback */
+  .portfolio-mobile-item:active {
+    transform: scale(0.98);
+    transition: transform 0.2s ease;
+  }
+  
+  /* Enhanced navigation spacing */
+  .portfolio-mobile-navigation {
+    padding: 32px 16px 24px 16px;
+    background: linear-gradient(to bottom, 
+      transparent 0%, 
+      rgba(248, 250, 252, 0.8) 50%, 
+      transparent 100%
+    );
+  }
+  
+  /* Arrow buttons styling */
+  .portfolio-arrow-mobile {
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #e2e8f0;
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+  }
+  
+  .portfolio-arrow-mobile:hover {
+    transform: scale(1.1);
+    border-color: #c5a572;
+    box-shadow: 0 6px 24px rgba(197, 165, 114, 0.2);
+  }
+  
+  .portfolio-arrow-mobile:active {
+    transform: scale(0.9);
+  }
+}
+
+/* Mobile Portfolio Enhancements */
+@media (max-width: 640px) {
+  .portfolio-carousel {
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  .portfolio-item {
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    margin-right: 8px;
+  }
+  
+  /* Show multiple images on mobile like desktop */
+  .portfolio-mobile-grid {
+    display: flex;
+    gap: 8px;
+  }
+  
+  /* Consistent button styling across devices like desktop */
+  .portfolio-nav-button {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 12px;
+    touch-action: manipulation;
+    position: relative;
+    z-index: 10;
+  }
+  
+  /* Enhanced button feedback for mobile */
+  .portfolio-nav-button:active {
+    transform: scale(0.92);
+    transition: transform 0.15s ease;
+  }
+  
+  /* Better dot styling for mobile */
+  .portfolio-dots-mobile {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 250px;
+    padding: 8px;
+  }
+  
+  /* Mobile dot improvements */
+  .portfolio-dot-mobile {
+    min-height: 12px;
+    min-width: 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    touch-action: manipulation;
+  }
+  
+  .portfolio-dot-mobile.active {
+    background-color: #c5a572;
+    width: 32px;
+    height: 12px;
+  }
+  
+  .portfolio-dot-mobile:not(.active) {
+    background-color: #d1d5db;
+    width: 12px;
+    height: 12px;
+  }
+  
+  .portfolio-dot-mobile:not(.active):hover {
+    background-color: #9ca3af;
+  }
+  
+  /* Improved text readability on mobile */
+  .portfolio-title {
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+  
+  .portfolio-category {
+    font-size: 0.875rem;
+    padding: 8px 12px;
+  }
+}
+
+@media (min-width: 641px) {
+  .portfolio-carousel {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+  }
+  
+  .portfolio-item {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
 /* Fix mobile spacing */
 @media (max-width: 768px) {
   html, body {
@@ -459,4 +683,70 @@ video {
 
 .portfolio-carousel > * {
   scroll-snap-align: start;
+}
+
+/* Mobile Portfolio Navigation Styles - Symmetric and Balanced */
+@media (max-width: 640px) {
+  .portfolio-nav-button {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(229, 231, 235, 0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .portfolio-nav-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 1);
+  }
+
+  .portfolio-nav-button:active {
+    transform: scale(0.95);
+  }
+
+  .portfolio-counter-mobile {
+    min-width: 100px;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 24px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(229, 231, 235, 0.6);
+    font-weight: 700;
+    font-size: 1.125rem;
+    text-align: center;
+    color: #374151;
+  }
+
+  .portfolio-arrow-mobile {
+    width: 24px;
+    height: 24px;
+    stroke-width: 3;
+    color: #6b7280;
+    transition: color 0.3s ease;
+  }
+
+  .portfolio-nav-button:hover .portfolio-arrow-mobile {
+    color: #374151;
+  }
+}
+
+/* Ensure symmetric spacing and alignment */
+.portfolio-navigation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .portfolio-navigation-container {
+    gap: 1.5rem;
+    padding: 1.5rem 1rem 1rem;
+  }
 }
