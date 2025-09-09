@@ -8,6 +8,7 @@ import Image from "next/image";
 import { Header } from "./components/Header";
 import { SiteFooter } from "./components/SiteFooter";
 import { ClientsSection } from "./components/ClientsSection";
+import { CtaEstimator } from "./components/CtaEstimator";
 
 // Stats data
 const stats = [
@@ -89,6 +90,42 @@ const portfolioItems = [
     src: "/img/04.jpg", 
     alt: "โครงการกันสาดโครงการขนาดใหญ่",
     title: "โครงการขนาดใหญ่",
+    category: "อุตสาหกรรม" 
+  },
+  { 
+    src: "/img/บ้าน.jpg", 
+    alt: "โครงการกันสาดบ้านพักครอบครัว",
+    title: "บ้านพักครอบครัว",
+    category: "บ้านพักอาศัย" 
+  },
+  { 
+    src: "/img/pr.jpg", 
+    alt: "โครงการกันสาดเพรสทิจ",
+    title: "โครงการเพรสทิจ",
+    category: "คอนโดมิเนียม" 
+  },
+  { 
+    src: "/img/01.jpg", 
+    alt: "โครงการกันสาดวิลล่าหรู",
+    title: "วิลล่าหรู",
+    category: "บ้านพักอาศัย" 
+  },
+  { 
+    src: "/img/02.jpg", 
+    alt: "โครงการกันสาดศูนย์การค้า",
+    title: "ศูนย์การค้า",
+    category: "อาคารพาณิชย์" 
+  },
+  { 
+    src: "/img/03.jpg", 
+    alt: "โครงการกันสาดรีสอร์ท",
+    title: "รีสอร์ท",
+    category: "โรงแรม" 
+  },
+  { 
+    src: "/img/04.jpg", 
+    alt: "โครงการกันสาดโรงงาน",
+    title: "โรงงานอุตสาหกรรม",
     category: "อุตสาหกรรม" 
   }
 ];
@@ -217,36 +254,215 @@ function AwningIntro(){
 // Portfolio Component
 function Portfolio() {
   const router = useRouter();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   
+  // Calculate items per view based on screen size
+  const getItemsPerView = () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth >= 1280) return 4; // xl: 4 items
+      if (window.innerWidth >= 1024) return 3; // lg: 3 items
+      if (window.innerWidth >= 768) return 2;  // md: 2 items
+      return 1; // sm: 1 item
+    }
+    return 4;
+  };
+
+  const [itemsPerView, setItemsPerView] = useState(getItemsPerView());
+
+  // Update items per view on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setItemsPerView(getItemsPerView());
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Scroll to specific index
+  const scrollToIndex = (index: number) => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const itemWidth = container.scrollWidth / portfolioItems.length;
+      const targetPosition = index * itemWidth;
+      
+      container.scrollTo({ 
+        left: targetPosition, 
+        behavior: 'smooth' 
+      });
+    }
+  };
+
+  // Handle navigation
+  const goToNext = () => {
+    const nextIndex = (currentIndex + itemsPerView) >= portfolioItems.length 
+      ? 0 
+      : currentIndex + itemsPerView;
+    setCurrentIndex(nextIndex);
+    scrollToIndex(nextIndex);
+  };
+
+  const goToPrev = () => {
+    const prevIndex = currentIndex - itemsPerView < 0 
+      ? Math.max(0, portfolioItems.length - itemsPerView)
+      : currentIndex - itemsPerView;
+    setCurrentIndex(prevIndex);
+    scrollToIndex(prevIndex);
+  };
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      const handleScroll = () => {
+        if (!isDragging) {
+          const scrollLeft = container.scrollLeft;
+          const itemWidth = container.scrollWidth / portfolioItems.length;
+          const newIndex = Math.round(scrollLeft / itemWidth);
+          setCurrentIndex(Math.max(0, Math.min(newIndex, portfolioItems.length - itemsPerView)));
+        }
+      };
+      
+      const handleStart = () => setIsDragging(true);
+      const handleEnd = () => {
+        setIsDragging(false);
+        setTimeout(() => {
+          handleScroll();
+        }, 100);
+      };
+      
+      container.addEventListener('scroll', handleScroll);
+      container.addEventListener('mousedown', handleStart);
+      container.addEventListener('mouseup', handleEnd);
+      container.addEventListener('touchstart', handleStart);
+      container.addEventListener('touchend', handleEnd);
+      
+      return () => {
+        container.removeEventListener('scroll', handleScroll);
+        container.removeEventListener('mousedown', handleStart);
+        container.removeEventListener('mouseup', handleEnd);
+        container.removeEventListener('touchstart', handleStart);
+        container.removeEventListener('touchend', handleEnd);
+      };
+    }
+  }, [isDragging, itemsPerView]);
+
   return (
-    <section id="portfolio" className="relative bg-[#0b1118]" aria-labelledby="portfolio-heading">
-      {/* Responsive grid: single column on mobile with fixed aspect, 2 cols on sm, 4 on lg */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        {portfolioItems.map((item, index) => (
-          <div
-            key={index}
-            className="group relative overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform duration-500 aspect-[4/3] lg:aspect-auto lg:h-[40vh]"
-               onClick={() => router.push('/portfolio')}>
-            <Image 
-              src={item.src} 
-              alt={item.alt} 
-              fill 
-              className="object-cover" 
-              loading={index < 2 ? 'eager' : 'lazy'}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            />
-            {/* Subtle hover overlay */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-            
-            {/* Text overlay in the center */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center text-white z-10">
-                <h3 className="text-base sm:text-lg lg:text-xl font-semibold mb-1 sm:mb-2 drop-shadow-lg">{item.title}</h3>
-                <p className="text-xs sm:text-sm lg:text-base opacity-90 drop-shadow-lg">{item.category}</p>
+    <section id="portfolio" className="relative bg-gradient-to-b from-gray-50 to-white py-12 md:py-16" aria-labelledby="portfolio-heading">
+      {/* Section heading */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <div className="text-center">
+          <h2 id="portfolio-heading" className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
+            ผลงานของเรา
+          </h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            ชมผลงานการติดตั้งกันสาดคุณภาพสูง ที่ผสมผสานระหว่างความสวยงาม ความทนทาน และฟังก์ชันการใช้งานที่เหมาะสม
+          </p>
+          <div className="mt-4 w-24 h-1 bg-gradient-to-r from-[#c5a572] to-[#d4b583] mx-auto rounded-full"></div>
+        </div>
+      </div>
+      
+      {/* Portfolio Grid */}
+      <div className="relative w-full">
+        {/* Navigation Buttons */}
+        <button
+          onClick={goToPrev}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-gray-900 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center"
+          aria-label="ดูผลงานก่อนหน้า"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        
+        <button
+          onClick={goToNext}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-gray-900 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center"
+          aria-label="ดูผลงานถัดไป"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        {/* Scrollable Container */}
+        <div 
+          ref={scrollContainerRef}
+          className="flex overflow-x-auto scrollbar-hide"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', scrollSnapType: 'x mandatory' }}
+        >
+          {portfolioItems.map((item, index) => (
+            <div
+              key={index}
+              className="group relative flex-shrink-0 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 h-96 md:h-[28rem] lg:h-[36rem] xl:h-[40rem] overflow-hidden cursor-pointer transform transition-all duration-500 hover:scale-[1.02]"
+              style={{ scrollSnapAlign: 'start' }}
+              onClick={() => router.push('/portfolio')}
+            >
+              {/* Image */}
+              <Image 
+                src={item.src} 
+                alt={item.alt} 
+                fill 
+                className="object-cover transition-transform duration-700 group-hover:scale-110" 
+                loading={index < 3 ? 'eager' : 'lazy'}
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
+              
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+              
+              {/* Content */}
+              <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-6 text-white">
+                <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                  <span className="inline-block px-2 py-1 md:px-3 md:py-1 bg-[#c5a572]/90 text-white text-xs font-medium rounded-full mb-2 md:mb-3 backdrop-blur-sm">
+                    {item.category}
+                  </span>
+                  <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-1 md:mb-2 leading-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs md:text-sm text-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                    คลิกเพื่อดูรายละเอียดเพิ่มเติม
+                  </p>
+                </div>
+                
+                {/* View More Button */}
+                <div className="absolute top-4 right-4 w-8 h-8 md:w-10 md:h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100">
+                  <svg className="w-4 h-4 md:w-5 md:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      </div>
+      
+      {/* Progress Indicators */}
+      <div className="flex justify-center items-center gap-4 mt-6 px-4 pb-4">
+        <div className="flex gap-2">
+          {Array.from({ length: Math.ceil(portfolioItems.length / itemsPerView) }).map((_, pageIndex) => (
+            <button
+              key={pageIndex}
+              onClick={() => {
+                const targetIndex = pageIndex * itemsPerView;
+                setCurrentIndex(targetIndex);
+                scrollToIndex(targetIndex);
+              }}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                Math.floor(currentIndex / itemsPerView) === pageIndex
+                  ? 'bg-[#c5a572] w-8' 
+                  : 'bg-gray-300 hover:bg-gray-400'
+              }`}
+              aria-label={`ไปหน้าที่ ${pageIndex + 1}`}
+            />
+          ))}
+        </div>
+        
+        <div className="text-sm text-gray-500 font-medium ml-4">
+          {Math.floor(currentIndex / itemsPerView) + 1} / {Math.ceil(portfolioItems.length / itemsPerView)}
+        </div>
       </div>
     </section>
   );
@@ -1181,13 +1397,14 @@ export default function Home() {
 				<Hero />
 				<About />
 				<AwningIntro />
-				<Portfolio />
-				<Services />
+        <Services />
 				<Video />
 				<Why />
 				<ClientsSection />
-				<FAQ />
-				<Testimonials />
+        <Portfolio />
+        <Testimonials />
+        <CtaEstimator />
+        <FAQ />
 				<Contact />
 			</main>
 			<SiteFooter />
