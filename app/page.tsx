@@ -326,43 +326,140 @@ function Services() {
 // Video Component
 function Video() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
+    // Handle video loading events
+    const handleLoadStart = () => {
+      console.log('Video loading started');
+      setIsLoading(true);
+    };
+    
+    const handleCanPlayThrough = () => {
+      console.log('Video can play through');
+      setIsLoading(false);
+    };
+    
+    const handleLoadedData = () => {
+      console.log('Video data loaded');
+      setIsLoading(false);
+    };
+    
+    const handleError = (e: Event) => {
+      console.error('Video error:', e);
+      setHasError(true);
+      setIsLoading(false);
+    };
+
+    // Performance optimizations
+    const handleLoadedMetadata = () => {
+      console.log('Video metadata loaded');
+      // Optimize video for device capabilities
+      if (window.innerWidth < 768) {
+        video.style.maxWidth = '100%';
+        video.style.height = 'auto';
+      }
+    };
+
+    video.addEventListener('loadstart', handleLoadStart);
+    video.addEventListener('canplaythrough', handleCanPlayThrough);
+    video.addEventListener('loadeddata', handleLoadedData);
+    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    video.addEventListener('error', handleError);
+
+    // Force load the video
+    video.load();
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            video.play().catch(console.error);
-          } else {
+          if (entry.isIntersecting && !hasError) {
+            // Add a small delay to ensure smooth loading
+            setTimeout(() => {
+              if (video.readyState >= 2) { // HAVE_CURRENT_DATA
+                video.play().catch((error) => {
+                  console.error('Video play failed:', error);
+                  setHasError(true);
+                });
+              }
+            }, 300);
+          } else if (!entry.isIntersecting) {
             video.pause();
           }
         });
       },
-      { threshold: 0.5 }
+      { 
+        threshold: 0.1, // Lower threshold for earlier detection
+        rootMargin: '100px' // Start loading earlier
+      }
     );
 
     observer.observe(video);
 
     return () => {
       observer.disconnect();
+      video.removeEventListener('loadstart', handleLoadStart);
+      video.removeEventListener('canplaythrough', handleCanPlayThrough);
+      video.removeEventListener('loadeddata', handleLoadedData);
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      video.removeEventListener('error', handleError);
+      
+      // Clean up video resources
+      video.pause();
+      video.currentTime = 0;
     };
-  }, []);
+  }, [hasError]);
 
   return (
     <section id="video" className="relative min-h-screen bg-[#0b1118] flex items-center justify-center">
       <div className="relative w-full h-screen overflow-hidden">
+        {/* Loading indicator - only show if actually loading and no error */}
+        {isLoading && !hasError && (
+          <div className="absolute inset-0 flex items-center justify-center bg-[#0b1118] z-20">
+            <div className="flex flex-col items-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mb-4"></div>
+              <div className="text-white text-lg">กำลังโหลดวิดีโอ...</div>
+            </div>
+          </div>
+        )}
+        
+        {/* Error fallback */}
+        {hasError && (
+          <div className="absolute inset-0 bg-[#0b1118] z-10">
+            <div className="relative w-full h-full">
+              <Image 
+                src="/img/01.jpg" 
+                alt="SP Awning - กันสาดคุณภาพ" 
+                fill
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                <div className="text-center text-white">
+                  <p className="text-lg mb-2">วิดีโอไม่สามารถแสดงได้</p>
+                  <p className="text-sm opacity-80">กรุณารีเฟรชหน้าหรือลองใหม่อีกครั้ง</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        
         <video 
           ref={videoRef}
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
           muted
           loop
           playsInline
           poster="/img/01.jpg"
+          preload="auto"
+          style={{ willChange: 'transform' }}
         >
           <source src="/img/video.mp4" type="video/mp4" />
+          <source src="/img/video.webm" type="video/webm" />
           Your browser does not support the video tag.
         </video>
       </div>
