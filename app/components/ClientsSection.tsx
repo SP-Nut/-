@@ -141,7 +141,7 @@ export function ClientsSection() {
     };
   }, []);
 
-  // Duplicate logos for seamless scrolling
+  // Duplicate logos only once; we will size each item and render actual images to reduce DOM weight
   const duplicatedLogos = [...clientLogos, ...clientLogos];
 
   return (
@@ -149,7 +149,7 @@ export function ClientsSection() {
       {/* Top Section - Scrolling Client Logos */}
       <div className="bg-white py-8 md:py-12 border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6 md:mb-10">
+          <div className="text-center mb-6 md:mb-8">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2">
               ลูกค้าของเรา
             </h2>
@@ -159,15 +159,11 @@ export function ClientsSection() {
           </div>
 
           {/* Scrolling Logos Container */}
-          <div className="relative w-full overflow-hidden">
-            {/* Gradient overlays */}
-            <div className="absolute left-0 top-0 w-6 sm:w-10 md:w-12 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 w-6 sm:w-10 md:w-12 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-            
+      <div className="relative w-full overflow-hidden">
             {/* Scrolling container */}
             <div 
               ref={scrollRef}
-              className="overflow-x-auto scrollbar-hide py-4 sm:py-5 md:py-8"
+        className="overflow-x-auto scrollbar-hide py-4 sm:py-5 md:py-8"
               style={{ 
                 scrollBehavior: 'auto',
                 msOverflowStyle: 'none',
@@ -176,16 +172,16 @@ export function ClientsSection() {
             >
               <div className="flex gap-5 md:gap-10 items-center" style={{ width: 'max-content' }}>
                 {duplicatedLogos.map((client, index) => (
-                  <div
-                    key={`${client.id}-${index}`}
-                    className="flex-shrink-0 w-24 sm:w-28 md:w-36 h-12 sm:h-14 md:h-18 relative group"
-                  >
-                    <div className="w-full h-full bg-gray-50 rounded-md sm:rounded-lg shadow-sm border border-gray-100 flex items-center justify-center p-2 sm:p-3 md:p-4 transition-all duration-300 group-hover:shadow-md group-hover:scale-105">
-                      {/* Placeholder for logo */}
-                      <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center text-gray-500 text-[10px] sm:text-xs font-medium text-center leading-tight px-1">
-                        {client.name}
-                      </div>
-                    </div>
+                  <div key={`${client.id}-${index}`} className="flex-shrink-0 w-24 sm:w-28 md:w-36 h-12 sm:h-14 md:h-16 relative">
+                    <Image
+                      src={client.logo}
+                      alt={client.alt}
+                      fill
+                      sizes="(max-width:640px) 96px, (max-width:768px) 112px, 144px"
+                      className="object-contain contrast-100 brightness-100"
+                      priority={index < 4}
+                      placeholder="empty"
+                    />
                   </div>
                 ))}
               </div>

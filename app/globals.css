@@ -240,7 +240,7 @@ a { transition:color .15s, background-color .15s, border-color .15s; }
 /* Hero refined */
 .hero-modern { position:relative; }
 .hero-modern:after { content:""; position:absolute; inset:0; background:linear-gradient(to top,rgba(11,15,25,.78),rgba(11,15,25,.35)); pointer-events:none; }
-.hero-bg { background-image:url('/img/บ้าน.jpg'); filter:brightness(.9) saturate(1.05); }
+.hero-bg { filter:brightness(.9) saturate(1.05); }
 .hero-inner { position:relative; z-index:2; }
 .hero-contact-line { display:flex; flex-wrap:wrap; gap:1.25rem; font-size:11px; text-transform:uppercase; letter-spacing:.18em; color:#b4c0d0; margin-bottom:1.75rem; opacity:.85; }
 .hero-contact-line a { color:#b4c0d0; }
@@ -332,7 +332,7 @@ h1,h2,h3,h4 { font-feature-settings:"liga" 1,"kern" 1; }
 @media (max-width: 520px){
   .stats-bar { grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; padding:1.25rem 1.25rem; }
   .stat-value { font-size:clamp(1.4rem,6.5vw,1.8rem); }
-  .hero-modern { min-height:64vh; }
+  .hero-modern { min-height:60vh; }
 }
 
 * { -webkit-tap-highlight-color:rgba(0,0,0,0); }

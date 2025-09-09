@@ -97,8 +97,16 @@ const portfolioItems = [
 function Hero() {
   return (
     <section className="hero-modern relative min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh] flex items-center" aria-labelledby="hero-heading">
-      <div className="hero-bg absolute inset-0 bg-cover bg-center" />
-      <div className="w-full hero-inner px-3 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+      <Image
+        src="/img/บ้าน.jpg"
+        alt=""
+        aria-hidden
+        fill
+        priority
+        sizes="100vw"
+        className="hero-bg object-cover"
+      />
+  <div className="w-full hero-inner px-3 sm:px-6 lg:px-8 flex flex-col items-center text-center">
         <div className="hero-contact-line flex flex-col sm:flex-row gap-1 sm:gap-2 lg:gap-4 text-[9px] sm:text-xs lg:text-[11px] mb-3 sm:mb-6 opacity-80 text-white">
           <span className="text-[#c5a572]">กรุงเทพฯ</span>
           <span className="hidden sm:inline">•</span>
@@ -224,6 +232,8 @@ function Portfolio() {
               alt={item.alt} 
               fill 
               className="object-cover" 
+              loading={index < 2 ? 'eager' : 'lazy'}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             />
             {/* Subtle hover overlay */}
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
