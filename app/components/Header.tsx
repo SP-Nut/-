@@ -110,7 +110,7 @@ export function Header() {
                   alt="พรีเมียมกันสาด" 
                   width={160} 
                   height={45} 
-                  className="h-10 w-auto"
+                  className="h-10 w-auto hover:scale-105 transition-transform duration-200"
                 />
               </Link>
             </div>
@@ -128,9 +128,9 @@ export function Header() {
                         handleNavClick(item.href);
                       }
                     }}
-                    className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                    className={`px-3 py-2 text-base font-medium transition-all duration-200 hover:transform hover:scale-105 ${
                       isActive(item.href)
-                        ? 'text-[#c5a572]'
+                        ? 'text-[#c5a572] font-semibold'
                         : 'text-gray-300 hover:text-[#c5a572]'
                     }`}
                   >
@@ -143,10 +143,12 @@ export function Header() {
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center space-x-4">
               <a
-                href="tel:0812345678"
-                className="bg-[#c5a572] hover:bg-[#b8986a] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
+                href="https://cal-customer.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#c5a572] hover:bg-[#b8986a] text-white px-6 py-2.5 text-base font-medium transition-all duration-200 hover:shadow-lg transform hover:scale-105"
               >
-                โทรเลย
+                ประเมินราคาฟรี
               </a>
             </div>
 
@@ -187,9 +189,9 @@ export function Header() {
                       setIsMobileMenuOpen(false);
                     }
                   }}
-                  className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
+                  className={`block px-3 py-2 text-base font-medium transition-all duration-200 hover:transform hover:scale-105 ${
                     isActive(item.href)
-                      ? 'text-[#c5a572]'
+                      ? 'text-[#c5a572] font-semibold'
                       : 'text-gray-300 hover:text-[#c5a572]'
                   }`}
                 >
@@ -198,10 +200,12 @@ export function Header() {
               ))}
               <div className="pt-4 pb-2">
                 <a
-                  href="tel:0812345678"
-                  className="bg-[#c5a572] hover:bg-[#b8986a] text-white block w-full text-center px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200"
+                  href="https://cal-customer.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#c5a572] hover:bg-[#b8986a] text-white block w-full text-center px-6 py-3.5 text-base font-medium transition-all duration-200 hover:shadow-lg transform hover:scale-105"
                 >
-                  โทรเลย
+                  ประเมินราคาฟรี
                 </a>
               </div>
             </div>

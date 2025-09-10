@@ -13,7 +13,7 @@ import { CtaEstimator } from "./components/CtaEstimator";
 // Stats data
 const stats = [
   { value: "35+", label: "ปีประสบการณ์" },
-  { value: "35,000+", label: "โปรเจ็กต์" },
+  { value: "50,000+", label: "ครัวเรือน" },
   { value: "100%", label: "ลูกค้าพอใจ" },
   { value: "5 ปี", label: "รับประกันสูงสุด" }
 ];
@@ -21,48 +21,60 @@ const stats = [
 // Services data
 const services = [
   {
-    title: 'กันสาดบ้านพักอาศัย',
-    icon: <path d="M3 12l9-9 9 9M5 10v10h4v-6h6v6h4V10" strokeLinecap="round" strokeLinejoin="round" />,
-    desc: 'ดีไซน์เฉพาะหลัง ให้เข้ากับเส้นสายอาคาร เพิ่มพื้นที่ใช้สอย ลดความร้อน ปกป้องผนังและเฟอร์นิเจอร์นอกบ้าน',
-    price: 'เริ่มต้น 15,000 บาท'
+    title: 'ติดต่อเรา',
+    icon: <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />,
+    desc: 'พูดคุยให้ใสวเท่าใจเว้าความต้องการกับทางเรา ผ่านทาง โทร สายบริการ ตอบคำถาม การใช้งาน ให้คำแนะนำในการติดตั้ง ไฮไล พร้อมติดต่อฟรี',
+    price: 'ติดต่อฟรี'
   },
   {
-    title: 'กันสาดร้านค้า / สำนักงาน',
-    icon: <path d="M4 5h16v6H4zM6 11v8m12-8v8M9 15h6" strokeLinecap="round" strokeLinejoin="round" />,
-    desc: 'ช่วยดึงดูดสายตา สร้างภาพลักษณ์มืออาชีพ ลดแสงจ้า และเพิ่มความสะดวกบริเวณหน้าร้าน / จุดรับส่งสินค้า',
-    price: 'เริ่มต้น 25,000 บาท'
+    title: 'ประเมินหน้างาน',
+    icon: <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />,
+    desc: 'พร้อมเท่าขึ้นไปโบวัด สำหรับความเหมาะสม เพื่อประกอบการติดตั้งไรต่อรองฟรี พร้อมให้คำแนะนำ โรคy สี พื้นที่ บอ่าวซัฟ',
+    price: 'ฟรี'
   },
   {
-    title: 'กันสาดอลูมิเนียม / โพลีคาร์บอเนต',
-    icon: <path d="M3 7h18M5 7l2 12h10l2-12M9 7c0 5 6 5 6 0" strokeLinecap="round" strokeLinejoin="round" />,
-    desc: 'โปร่งแสง กัน UV โครงสร้างแข็งแรง น้ำหนักเบา อายุการใช้งานยาว ดูแลรักษาง่าย เหมาะทั้งบ้านและเชิงพาณิชย์',
-    price: 'เริ่มต้น 18,000 บาท'
+    title: 'เสนอราคาฟรี',
+    icon: <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />,
+    desc: 'ขนาดใครอสร้างหล่า วิสัด ซีการซ่าตำแหน่งยืนยัน ดำเนินงานที่ชั้นจน พร้อมรายละเอียด ต่างๆข่าระลาต์ ท็อป และ ช่าระยา ก็องหนา',
+    price: 'ประเมินฟรี'
   },
   {
-    title: 'งานออกแบบเฉพาะไซต์ (Custom)',
-    icon: <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" strokeLinejoin="round" />,
-    desc: 'ปรับให้สอดคล้องโครงสร้างจริง วิเคราะห์ลม น้ำฝน น้ำหนัก ให้คำแนะนำวัสดุ พร้อมแบบ 3D / รายละเอียดประกอบ',
-    price: 'ราคาตามแบบ'
+    title: 'ออกแบบ',
+    icon: <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />,
+    desc: 'ออกแบบให้ลูกค้าเพื่อความเหมาะสมที่สุดกับการใช้งานสองมาซากที่สุดต้องการ เพื่อปกับวันที่ใส่งานที่สุดและให้ลูกค้าตรวจสอบก่อนติดตั้งจริง',
+    price: 'ฟรี'
   },
+  {
+    title: 'นัดวันติดตั้ง',
+    icon: <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />,
+    desc: 'กำหนดนัดวัน เวลา เพื่อให้การติดตั้นานติดันดีจุงานที่มีสะมีการบริการกำหนดเวลินใยบุลได้ตามที่หนา สนใจมุลได้ตามกำหนด',
+    price: 'ฟรี'
+  },
+  {
+    title: 'ส่งมอบงาน',
+    icon: <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />,
+    desc: 'ตรวจสอบความเรียบร้อยของงาน และ ช่าระสำเร็จยังหนา ใช้งายที่ทำหนา',
+    price: 'ตรวจสอบฟรี'
+  }
 ];
 
 // FAQ data  
 const faqs = [
   {
-    question: "กันสาดใช้วัสดุอะไร และอายุการใช้งานเท่าไหร่",
-    answer: "เราใช้วัสดุเกรดสถาปัตย์กรรม อย่างอลูมิเนียม T6 เหล็กเคลือบกันสนิม และแผ่นโพลีคาร์บอเนต UV protection อายุการใช้งาน 15-20 ปี พร้อมรับประกันโครงสร้าง 5 ปี"
+    question: "ราคาติดตั้งหลังคาและต่อเติมโรงรถเท่าไหร่",
+    answer: "ราคาติดตั้งหลังคาไวนิลเริ่มต้น 400-600 บาท/ตร.ม. หลังคา Shinkolite 500-800 บาท/ตร.ม. ต่อเติมที่จอดรถหน้าบ้านเริ่มต้น 18,000 บาท ขึ้นกับขนาดและวัสดุที่เลือก"
   },
   {
-    question: "ราคากันสาดคิดอย่างไร และมีค่าใช้จ่ายเพิ่มเติมไหม",
-    answer: "ราคาคิดตามตารางเมตร ขึ้นกับวัสดุและความซับซ้อนของงาน รวมการออกแบบ สำรวจหน้างาน และติดตั้งเรียบร้อย ไม่มีค่าใช้จ่ายแอบแฝง"
+    question: "รับติดตั้งหลังคาโรงรถพื้นที่ไหนบ้าง",
+    answer: "เรารับงานทั่วประเทศ ติดตั้งหลังคาโรงรถหน้าบ้าน ข้างบ้าน ต่อเติมลานจอดรถ มีทีมช่างประจำภูมิภาค ให้คำปรึกษาและสำรวจหน้างานฟรี"
   },
   {
-    question: "กระบวนการติดตั้งใช้เวลาเท่าไหร่",
-    answer: "งานบ้านพักทั่วไป 1-2 วัน งานเชิงพาณิชย์ 3-7 วัน ขึ้นกับขนาดและความซับซ้อน เราจะแจ้งกำหนดการชัดเจนหลังสำรวจหน้างาน"
+    question: "วิธีติดตั้งหลังคาไวนิลใช้เวลาเท่าไหร่",
+    answer: "การติดตั้งหลังคาไวนิลโรงรถขนาด 4x6 เมตร ใช้เวลา 1-2 วัน ต่อเติมโรงจอดรถขนาดใหญ่ 3-5 วัน ขึ้นกับความซับซ้อนของโครงสร้าง"
   },
   {
-    question: "มีบริการหลังการขายและการบำรุงรักษาไหม",
-    answer: "มีบริการตรวจสอบ ทำความสะอาด และบำรุงรักษาประจำปี รวมถึงการซ่อมแซมหากมีความเสียหาย ทีมช่างพร้อมให้บริการตลอด"
+    question: "หลังคา Shinkolite กับไวนิลต่างกันอย่างไร",
+    answer: "Shinkolite หนากว่า ทนทานกว่า ราคาสูงกว่า เหมาะกับพื้นที่ที่ต้องการความแข็งแรง ไวนิลราคาประหยัด น้ำหนักเบา เหมาะกับโรงรถทั่วไป"
   }
 ];
 
@@ -70,63 +82,63 @@ const faqs = [
 const portfolioItems = [
   { 
     src: "/img/01.jpg", 
-    alt: "โครงการกันสาดบ้านพักสไตล์โมเดิร์น",
-    title: "บ้านพักสไตล์โมเดิร์น",
-    category: "บ้านพักอาศัย" 
+    alt: "ติดตั้งหลังคาโรงรถหน้าบ้านสไตล์โมเดิร์น",
+    title: "โรงรถหน้าบ้านโมเดิร์น",
+    category: "ติดตั้งหลังคาโรงรถ" 
   },
   { 
     src: "/img/02.jpg", 
-    alt: "โครงการกันสาดร้านค้าเชิงพาณิชย์",
-    title: "ร้านค้าเชิงพาณิชย์",
-    category: "อาคารพาณิชย์" 
+    alt: "ต่อเติมที่จอดรถและกันสาดร้านค้า",
+    title: "ต่อเติมที่จอดรถร้านค้า",
+    category: "ต่อเติมโรงจอดรถ" 
   },
   { 
     src: "/img/03.jpg", 
-    alt: "โครงการกันสาดโรงแรมหรู",
-    title: "โรงแรมหรู",
-    category: "โรงแรม" 
+    alt: "ติดตั้งหลังคา Shinkolite โรงแรม",
+    title: "หลังคา Shinkolite โรงแรม",
+    category: "หลังคา Shinkolite" 
   },
   { 
     src: "/img/04.jpg", 
-    alt: "โครงการกันสาดโครงการขนาดใหญ่",
-    title: "โครงการขนาดใหญ่",
-    category: "อุตสาหกรรม" 
+    alt: "รับเหมาต่อเติมหลังคาโรงงาน",
+    title: "ต่อเติมหลังคาโรงงาน",
+    category: "รับเหมาต่อเติม" 
   },
   { 
     src: "/img/บ้าน.jpg", 
-    alt: "โครงการกันสาดบ้านพักครอบครัว",
-    title: "บ้านพักครอบครัว",
-    category: "บ้านพักอาศัย" 
+    alt: "ติดตั้งกันสาดรางน้ำบ้านพัก",
+    title: "กันสาดรางน้ำบ้านพัก",
+    category: "กันสาดรางน้ำ" 
   },
   { 
     src: "/img/pr.jpg", 
-    alt: "โครงการกันสาดเพรสทิจ",
-    title: "โครงการเพรสทิจ",
-    category: "คอนโดมิเนียม" 
+    alt: "ต่อเติมโรงรถข้างบ้านคอนโด",
+    title: "โรงรถข้างบ้านคอนโด",
+    category: "ต่อเติมโรงรถ" 
   },
   { 
     src: "/img/01.jpg", 
-    alt: "โครงการกันสาดวิลล่าหรู",
-    title: "วิลล่าหรู",
-    category: "บ้านพักอาศัย" 
+    alt: "ติดตั้งหลังคาไวนิลวิลล่า",
+    title: "หลังคาไวนิลวิลล่า",
+    category: "หลังคาไวนิล" 
   },
   { 
     src: "/img/02.jpg", 
-    alt: "โครงการกันสาดศูนย์การค้า",
-    title: "ศูนย์การค้า",
-    category: "อาคารพาณิชย์" 
+    alt: "รับทำกันสาดศูนย์การค้า",
+    title: "กันสาดศูนย์การค้า",
+    category: "รับทำกันสาด" 
   },
   { 
     src: "/img/03.jpg", 
-    alt: "โครงการกันสาดรีสอร์ท",
-    title: "รีสอร์ท",
-    category: "โรงแรม" 
+    alt: "ติดตั้งหลังคาพียูโฟมรีสอร์ท",
+    title: "หลังคาพียูโฟมรีสอร์ท",
+    category: "หลังคาพียูโฟม" 
   },
   { 
     src: "/img/04.jpg", 
-    alt: "โครงการกันสาดโรงงาน",
-    title: "โรงงานอุตสาหกรรม",
-    category: "อุตสาหกรรม" 
+    alt: "ราคาติดตั้งหลังคาโรงงาน",
+    title: "หลังคาโรงงาน",
+    category: "ราคาติดตั้งหลังคา" 
   }
 ];
 
@@ -145,33 +157,33 @@ function Hero() {
       />
   <div className="w-full hero-inner px-3 sm:px-6 lg:px-8 flex flex-col items-center text-center">
         <div className="hero-contact-line flex flex-col sm:flex-row gap-1 sm:gap-2 lg:gap-4 text-[9px] sm:text-xs lg:text-[11px] mb-3 sm:mb-6 opacity-80 text-white">
-          <span className="text-[#c5a572]">กรุงเทพฯ</span>
+          <span className="text-[#c5a572]">กรุงเทพฯและปริมณฑล</span>
           <span className="hidden sm:inline">•</span>
-          <span className="text-[8px] sm:text-xs">info@premiumawning.co.th</span>
+          <span className="text-[8px] sm:text-xs">spkansards@gmail.com</span>
           <span className="hidden sm:inline">•</span>
-          <span className="font-medium">081-234-5678</span>
+          <span className="font-medium">084-909-7777</span>
         </div>
         
         <div className="max-w-[900px] w-full">
           <h1 id="hero-heading" className="font-display font-semibold tracking-tight text-[clamp(1.2rem,6vw,3.8rem)] mb-3 sm:mb-4 lg:mb-6 leading-[1.1] sm:leading-[1.08] px-1 sm:px-0 text-white">
-            <span className="inline-block">ติดตั้งกันสาดคุณภาพ</span>
+            <span className="inline-block">รับติดตั้งหลังคา กันสาด</span>
             <br className="hidden sm:block"/>
-            <span className="inline-block"> เพื่อบ้านและธุรกิจของคุณ</span>
+            <span className="inline-block">กรุงเทพฯและปริมณฑล</span>
           </h1>
           
-          <p className="text-[#9dafc2] text-[clamp(.75rem,3.5vw,1.05rem)] leading-relaxed mb-4 sm:mb-8 lg:mb-10 max-w-[620px] mx-auto px-1 sm:px-4 lg:px-0">
-            รายละเอียดที่เนี้ยบ วัสดุพรีเมียม ดีไซน์เรียบหรู อยู่ได้นาน พร้อมทีมช่างมากประสบการณ์ตั้งแต่สำรวจ ออกแบบ ไปจนถึงติดตั้งแบบครบวงจร
+          <p className="text-[#9dafc2] text-[clamp(.9rem,3.5vw,1.2rem)] leading-relaxed mb-4 sm:mb-8 lg:mb-10 max-w-[620px] mx-auto px-1 sm:px-4 lg:px-0">
+            ผู้เชี่ยวชาญการติดตั้งหลังคา Shinkolite ไวนิล และพียูโฟม รับทำกันสาดและต่อเติมที่จอดรถ ราคาย่อมเยา วัสดุคุณภาพ พร้อมทีมช่างมืออาชีพ
           </p>
           
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-center justify-center px-1 sm:px-4 lg:px-0">
             <a
               href="#contact"
-              className="w-full sm:w-auto min-h-[44px] px-4 sm:px-8 lg:px-10 flex items-center justify-center bg-[#b49a74] text-white font-semibold tracking-wide text-sm sm:text-[13px] leading-none rounded-md sm:rounded-none shadow-[0_2px_8px_-2px_rgba(0,0,0,0.45)] hover:brightness-[1.08] focus:outline-none focus:ring-2 focus:ring-[#b49a74]/60 transition-all duration-300 touch-manipulation"
+              className="w-full sm:w-auto min-h-[44px] px-4 sm:px-8 lg:px-10 flex items-center justify-center bg-[#b49a74] text-white font-semibold tracking-wide text-base sm:text-base leading-none rounded-md sm:rounded-none shadow-[0_2px_8px_-2px_rgba(0,0,0,0.45)] hover:brightness-[1.08] focus:outline-none focus:ring-2 focus:ring-[#b49a74]/60 transition-all duration-300 touch-manipulation"
             >ขอใบเสนอราคา</a>
             
             <Link
               href="/portfolio"
-              className="w-full sm:w-auto min-h-[44px] px-4 sm:px-8 lg:px-10 flex items-center justify-center border border-white text-white font-semibold tracking-wide text-sm sm:text-[13px] leading-none hover:bg-white hover:text-[#0b1118] transition-all duration-300 rounded-md sm:rounded-none touch-manipulation"
+              className="w-full sm:w-auto min-h-[44px] px-4 sm:px-8 lg:px-10 flex items-center justify-center border border-white text-white font-semibold tracking-wide text-base sm:text-base leading-none hover:bg-white hover:text-[#0b1118] transition-all duration-300 rounded-md sm:rounded-none touch-manipulation"
             >ดูผลงาน</Link>
           </div>
         </div>
@@ -188,19 +200,19 @@ function About(){
         <div className="grid gap-6 lg:gap-12 lg:grid-cols-12 items-start">
           <div className="lg:col-span-5 flex flex-col">
             <div className="mb-3 md:mb-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-[10px] sm:text-[11px] tracking-wide text-[#64748b] uppercase">
-              <span className="inline-flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#c5a572]"></span> กรุงเทพฯ</span>
-              <span className="hidden sm:inline text-xs">info@premiumawning.co.th</span>
-              <span className="hidden md:inline">081-234-5678</span>
+              <span className="inline-flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#c5a572]"></span> กรุงเทพฯและปริมณฑล</span>
+              <span className="hidden sm:inline text-xs">spkansards@gmail.com</span>
+              <span className="hidden md:inline">084-909-7777</span>
             </div>
             <div className="flex items-baseline gap-3 md:gap-4 mb-3 md:mb-4">
               <span className="text-[#c5a572] font-semibold text-sm tracking-[.4em]">01</span>
               <h2 id="about-heading" className="font-display font-semibold tracking-tight text-[clamp(1.6rem,3.8vw,2.8rem)] leading-[1.05]">เกี่ยวกับเรา</h2>
             </div>
-            <p className="text-[#94a3b8] text-sm sm:text-base leading-relaxed max-w-md mb-4">
-              เราออกแบบและติดตั้งกันสาดระดับพรีเมียมสำหรับบ้าน ร้านค้า และโครงการเชิงพาณิชย์ เน้นโครงสร้างที่ปลอดภัย วัสดุที่ได้มาตรฐาน และดีไซน์ที่กลมกลืนกับสถาปัตยกรรมเดิม
+            <p className="text-[#94a3b8] text-base sm:text-lg leading-relaxed max-w-md mb-4">
+              เราคือ SP Kansard ผู้นำด้านติดตั้งกันสาดในกรุงเทพฯและปริมณฑล ด้วยประสบการณ์กว่า 35 ปี และผลงานมากกว่า 50,000 ครัวเรือนทั่วไทย ครอบคลุมทุกประเภทวัสดุ ไม่ว่าจะเป็น กันสาดเมทัลชีท, กันสาดไวนิลดรีมรูฟคลิปล็อค, อลูมิเนียมรูฟ, โพลีคาร์บอเนต, ชินโคไลท์ และระแนงฝ้าทุกแบบ
             </p>
-            <p className="text-[#94a3b8] text-sm leading-relaxed max-w-md mb-5">
-              ขั้นตอนครบวงจร: สำรวจ วิเคราะห์โหลด ออกแบบ เลือกวัสดุ และติดตั้งโดยทีมช่างประสบการณ์สูง
+            <p className="text-[#94a3b8] text-base leading-relaxed max-w-md mb-5">
+              เรามีทีมงานผู้เชี่ยวชาญในการออกแบบ ติดตั้ง และต่อเติมกันสาดด้วยมาตรฐานสูงสุด ทุกโครงการรับประกันความแข็งแรง ความสวยงาม และฟังก์ชันการใช้งาน พร้อมรับประกันสูงสุด 5 ปี เพื่อความอุ่นใจในระยะยาว
             </p>
             <Link href="/portfolio" className="group inline-flex items-center gap-2 text-[12px] tracking-[.25em] font-medium text-[#c5a572] uppercase mt-2">
               ดูผลงานของเรา
@@ -240,9 +252,9 @@ function AwningIntro(){
           <h2 id="awning-heading" className="font-display font-semibold tracking-tight text-[clamp(1.8rem,4vw,3rem)] leading-[1.1] mb-4">
             เอสพี กันสาด
           </h2>
-          <p className="mt-4 max-w-3xl text-slate-700 dark:text-slate-300/90 text-sm sm:text-[15px] leading-relaxed">
-            ศูนย์รวมวัสดุ กันสาด – โครงสร้าง – หลังคา มากที่สุดในไทย ครบทั้งงานออกแบบ ประเมินโครงสร้าง ผลิตระบบ Pre-Fab และติดตั้งด้วยทีมเฉพาะทางในมาตรฐานเดียว
-            เราคัดสรรวัสดุเกรดสถาปัตย์กว่า <span className="text-[#a78143] dark:text-[#d9bf8d] font-medium">30+ ประเภท</span> ตั้งแต่อะลูมิเนียม T6 โครงเหล็กเคลือบป้องกันสนิม แผ่นกรองแสงลดรังสี ไปจนถึงโซลูชันวัสดุโปร่งแสงและระบบระบายน้ำ เพื่อความสวยงาม แข็งแรง อายุใช้งานยาว และการบำรุงรักษาที่ง่ายขึ้น
+          <p className="mt-4 max-w-3xl text-slate-700 dark:text-slate-300/90 text-base sm:text-lg leading-relaxed">
+            ศูนย์รวมกันสาดและหลังคาครบวงจรใหญ่ที่สุดในกรุงเทพฯและปริมณฑล
+เรามีวัสดุให้เลือกหลากหลาย ตั้งแต่ กันสาดเมทัลชีท, กันสาดไวนิลดรีมรูฟคลิปล็อค, อลูมิเนียมรูฟ, โพลีคาร์บอเนต, ชินโคไลท์ ไปจนถึงระแนงและฝ้าทุกแบบ ครบจบในที่เดียว พร้อมทีมช่างมืออาชีพมากประสบการณ์กว่า 35 ปี ที่พร้อมดูแลทุกขั้นตอนอย่างพิถีพิถัน ตั้งแต่การออกแบบ ติดตั้ง ไปจนถึงบริการหลังการขาย
           </p>
           <div className="mt-8 h-px w-32 bg-gradient-to-r from-transparent via-[#c5a572] to-transparent opacity-70" />
         </div>
@@ -390,10 +402,10 @@ function Portfolio() {
         <div className="max-w-7xl mx-auto px-6 mb-8">
           <div className="text-center">
             <h2 id="portfolio-heading" className="text-4xl font-bold text-gray-900 mb-4">
-              ผลงานของเรา
+              ผลงานติดตั้งหลังคาและกันสาด
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              ชมผลงานการติดตั้งกันสาดคุณภาพสูง ที่ผสมผสานระหว่างความสวยงาม ความทนทาน และฟังก์ชันการใช้งาน
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              ชมผลงานการต่อเติมโรงรถ ติดตั้งหลังคาไวนิล Shinkolite และกันสาดรางน้ำ คุณภาพงานระดับมืออาชีพ
             </p>
             <div className="mt-6 w-24 h-1 bg-gradient-to-r from-[#c5a572] to-[#d4b583] mx-auto rounded-full"></div>
           </div>
@@ -452,7 +464,7 @@ function Portfolio() {
                     <h3 className="text-2xl font-bold mb-3 leading-tight">
                       {item.title}
                     </h3>
-                    <p className="text-base text-gray-200 leading-relaxed">
+                    <p className="text-lg text-gray-200 leading-relaxed">
                       คลิกเพื่อดูรายละเอียดเพิ่มเติม
                     </p>
                   </div>
@@ -666,81 +678,71 @@ function Portfolio() {
 // Services Component
 function Services() {
   return (
-    <section id="services" className="relative py-8 md:py-16 bg-[#0b1118] border-y border-[#1a2332]" aria-labelledby="services-heading">
-      <div className="mx-auto w-full max-w-7xl px-3 sm:px-6 lg:px-8">
-        <div className="text-center mb-8 md:mb-10">
-          <h2 className="text-xl md:text-3xl lg:text-4xl font-light text-white mb-3 md:mb-4 tracking-wide">
-            บริการของเรา
+    <section id="services" className="relative py-12 md:py-16 overflow-hidden" aria-labelledby="services-heading">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/img/01.jpg"
+          alt=""
+          aria-hidden
+          fill
+          className="object-cover opacity-60"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[#1a1f2e]/45"></div>
+      </div>
+      
+      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-light text-white mb-2 tracking-wide">
+            ขั้นตอนการใช้บริการ เอสพี กันสาด
           </h2>
-          <div className="w-20 h-px bg-gradient-to-r from-transparent via-[#c5a572] to-transparent mx-auto mb-4 md:mb-6"></div>
-          <p className="text-[#94a3b8] text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-light px-2">
-            เราพัฒนาโซลูชันกันสาดที่ผสมผสานโครงสร้างที่ปลอดภัย วัสดุคุณภาพสูง และดีไซน์ที่สมดุลกับงานสถาปัตยกรรมเดิม
-          </p>
         </div>
 
-        <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
           {services.map((service, index) => (
             <div
               key={service.title}
-              className="group relative bg-[#111b25]/80 backdrop-blur-sm border border-[#1e2a37] hover:border-[#c5a572]/30 transition-all duration-500 overflow-hidden"
+              className="group relative bg-[#2a3441] hover:bg-[#3a4551] border border-[#3a4551] hover:border-[#c5a572] transition-all duration-300 rounded-2xl p-5 text-center"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#c5a572]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              
-              <div className="relative p-4 sm:p-6">
-                <div className="text-[#c5a572]/30 font-light text-2xl sm:text-4xl mb-2 sm:mb-3 leading-none">
-                  0{index + 1}
-                </div>
+              {/* Step Number Badge */}
+              <div className="absolute -top-2 -right-2 w-7 h-7 bg-[#c5a572] text-[#1a1f2e] font-bold text-sm flex items-center justify-center rounded-full shadow-lg">
+                {index + 1}
+              </div>
 
-                <div className="mb-3 sm:mb-4">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 border border-[#2a3a4b] flex items-center justify-center group-hover:border-[#c5a572]/50 transition-colors duration-300">
-                    <svg 
-                      viewBox="0 0 24 24" 
-                      stroke="currentColor" 
-                      strokeWidth={1} 
-                      fill="none" 
-                      className="w-4 h-4 sm:w-5 sm:h-5 text-[#c5a572]"
-                    >
-                      {service.icon}
-                    </svg>
-                  </div>
-                </div>
-                
-                <h3 className="font-light text-sm sm:text-base text-white mb-2 sm:mb-3 tracking-wide leading-snug group-hover:text-[#c5a572] transition-colors duration-300">
-                  {service.title}
-                </h3>
-                
-                <p className="text-[#94a3b8] text-xs leading-relaxed mb-3 sm:mb-4 font-light">
-                  {service.desc}
-                </p>
-
-                <div className="mb-3 sm:mb-4">
-                  <span className="text-[#c5a572] text-xs font-light tracking-wider border-b border-[#c5a572]/30 pb-1">
-                    {service.price}
-                  </span>
-                </div>
-                
-                <div className="flex items-center text-xs tracking-[0.2em] text-[#94a3b8] uppercase group-hover:text-[#c5a572] transition-colors duration-300">
-                  <span>สอบถามรายละเอียด</span>
-                  <svg className="w-3 h-3 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              {/* Icon Circle */}
+              <div className="mb-4 flex justify-center">
+                <div className="w-16 h-16 border-2 border-[#c5a572] rounded-full flex items-center justify-center bg-[#c5a572]/10">
+                  <svg 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor" 
+                    strokeWidth={1.5} 
+                    fill="none" 
+                    className="w-8 h-8 text-[#c5a572]"
+                  >
+                    {service.icon}
                   </svg>
                 </div>
               </div>
+              
+              {/* Title */}
+              <h3 className="font-semibold text-lg text-white mb-3 leading-tight">
+                {service.title}
+              </h3>
+              
+              {/* Description */}
+              <p className="text-[#a0a9b8] text-sm leading-relaxed mb-4 min-h-[80px] flex items-center justify-center">
+                {service.desc}
+              </p>
             </div>
           ))}
         </div>
 
-        <div className="text-center mt-8 md:mt-12">
-          <div className="w-px h-12 bg-gradient-to-b from-transparent via-[#c5a572] to-transparent mx-auto mb-4 md:mb-6"></div>
-          <p className="text-[#94a3b8] mb-4 md:mb-6 font-light text-sm px-4">
-            ต้องการคำปรึกษาเฉพาะโปรเจ็กต์ของคุณ?
-          </p>
-          <button className="group inline-flex items-center px-4 sm:px-6 py-2 border border-[#c5a572] text-[#c5a572] hover:bg-[#c5a572] hover:text-[#0b1118] transition-all duration-300 font-light tracking-wider text-sm min-h-[44px] touch-manipulation">
-            <span>ปรึกษาฟรี</span>
-            <svg className="w-4 h-4 ml-3 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </button>
+        {/* Process Flow Line */}
+        <div className="hidden xl:block mt-8">
+          <div className="relative max-w-5xl mx-auto">
+            <div className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#c5a572] to-transparent"></div>
+          </div>
         </div>
       </div>
     </section>
